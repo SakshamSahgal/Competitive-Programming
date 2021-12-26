@@ -1,0 +1,114 @@
+#include <stdio.h>
+int main()
+{
+    int a;
+    printf("enter your number");
+    scanf("%d",&a);
+    printf("\n your input is %d",a);
+    return 0;
+}
+-------------------------------------------------------------------
+#include <stdio.h>
+int main()
+{
+   int a;
+   int b;
+   float sum;
+   float product;
+   float division;
+   printf("basic Arithmatic Operations \n");
+   scanf("%d",&a);
+   scanf("%d",&b);
+   sum = a+b;
+   product = a*b;
+   division = a/b;
+   printf(" \n sum = %f",sum);
+   printf("\n Product = %f" ,product);
+   printf("\n division = %f",division);
+   return 0;
+}
+-----------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+#include <stdio.h>
+#include <math.h>
+int main()
+{
+   int a;
+   int b;
+   printf("enter two numbers \n");
+    scanf("%d",&a);
+    scanf("%d",&b);
+  a=a+b;
+  b=a-b;
+  a=a-b;
+  printf("swapped numbers = \n  a = %d",a);
+  printf("\n swapped numbers = \n  b = %d",b);
+   return 0;
+}
+
+--------------------------------------------------------------------------------
+#include <stdio.h>
+#include <math.h>
+int main()
+{
+   int numerator;
+   int denominator;
+   printf("enter a numerator \n");
+   printf("enter a denominator \n");
+   scanf("%d",&numerator);
+   scanf("%d",&denominator);
+
+   return 0;
+}
+
+-------------------------------------------------------------------------
+#include <stdio.h>
+#include <math.h>
+int main()
+{
+   int x1,y1,x2,y2,x3,y3;
+   printf("enter coordinates of P1\n");
+   scanf("%d%d",&x1,&y1);
+   printf("enter coordinates of P2\n");
+   scanf("%d%d",&x2,&y2);
+   int distance1 = (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
+   printf("\n distance = \n %d",distance1);
+   printf(" \n enter coordinates of P3\n");
+   scanf("%d%d",&x3,&y3);
+
+   int distance2 = (x3-x1)*(x3-x1) + (y3-y1)*(y3-y1);
+   printf(" \n distance between p3 and p1= \n %d",distance2);
+
+   int distance3 = (x3-x2)*(x3-x2) + (y3-y2)*(y3-y2);
+   printf(" \n distance between p3 and p2= \n %d",distance3);
+   return 0;
+}
+-----------------------------------------------------------------------------
+#include <stdio.h>
+#include <math.h>
+int main()
+{
+   int n;
+   int temp;
+   printf("enter a 3 digit number\n");
+   scanf("%d",&n);
+   temp = n%10;
+   printf("\n %d",temp);
+   temp = (n/10)%10;
+   printf("%d",temp);
+   temp = (n/100)%10;
+   printf("%d",temp);
+   return 0;
+}
+
