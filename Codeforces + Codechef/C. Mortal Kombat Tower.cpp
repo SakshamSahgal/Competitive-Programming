@@ -24,60 +24,50 @@ int main()
         for(int i=0; i<n; i++)
             cin>>a[i];
 
-        lli c=0;
-        lli i=0;
-        lli ans=0;
-        while(i < n)
+        lli dp[2][n] = {0};
+
+        for(int i=n-1; i>=0; i--)
         {
-            if(c%2 == 0) //friend
+            if(i == n-1)
             {
-                if(  i+1 < n )
-                {
-                    if(a[i] == 0 && a[i+1] == 0)
-                        i+=2;
-                    else if(a[i] == 0 && a[i+1] == 1)
-                        i++;
-                    else if(a[i] == 1 && a[i+1] == 0)
-                    {
-                        ans++;
-                        i+=2;
-                    }
-                    else
-                    {
-                        ans++;
-                        i++;
-                    }
-                }
+                dp[0][i] = 0;
+
+                if(a[i] == 0)
+                    dp[1][i] = 0;
                 else
-                {
-                    if(a[i] == 0)
-                        i++;
-                    else
-                    {
-                        ans++;
-                        i++;
-                    }
-                }
+                    dp[1][i] = 1;
             }
-            else  //me
+            else if(i == n-2)
             {
-                if(  i+1 < n )
-                {
-                    if(a[i] == 0 && a[i+1] == 0)
-                        i+=1;
-                    else if(a[i] == 0 && a[i+1] == 1)
-                        i+=2;
-                    else if(a[i] == 1 && a[i+1] == 0)
-                        i++;
-                    else
-                        i+=2;
-                }
+                dp[0][i] = 0;
+                if( (a[i] == 0 && a[i+1] == 0) || (a[i] == 0 && a[i+1] == 1) )
+                    dp[1][i] = 0;
                 else
-                    i++;
+                    dp[1][i] = 1;
             }
-            c++;
+            else
+            {
+                dp[0][i] = min(dp[1][i+1],dp[1][i+2]);
+                if(a[i] == 0 && a[i+1] == 0)
+                    dp[1][i] = min(dp[0][i+1],dp[0][i+2]);
+                else if(a[i] == 0 && a[i+1] == 1)
+                    dp[1][i] = min(dp[0][i+1],1 + dp[0][i+2]);
+                else if(a[i] == 1 && a[i+1] == 0)
+                    dp[1][i] = 1 + min(dp[0][i+1],dp[0][i+2]);
+                else
+                    dp[1][i] = min(1 + dp[0][i+1],2 + dp[0][i+2]);
+            }
         }
-        cout<<ans<<"\n";
+        /*
+        cout<<"\n------------------------\n";
+        for(int i=0;i<2;i++)
+        {
+            for(int j=0;j<n;j++)
+                cout<<dp[i][j]<<" ";
+            cout<<"\n";
+        }
+        cout<<"\n------------------------\n"; */
+        cout<<dp[1][0]<<"\n";
         t--;
     }
     return 0;

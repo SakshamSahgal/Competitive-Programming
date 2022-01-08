@@ -1,127 +1,76 @@
 #include<iostream>
-#include<algorithm>
+#include<cstring>
 #include<vector>
-#define usi unsigned short int
-#define ui unsigned int
-#define ulli unsigned long long int
+#include<set>
+#include<map>
+#include<algorithm>
+#include<cmath>
+#include<climits>
 #define lli long long int
+#define GO_FAST ios_base::sync_with_stdio(0);ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 using namespace std;
-
-void pair_printer(vector<pair<int,char>> v)
-{
-    cout<<"\n------------pair------------\n";
-    cout<<"value = ";
-    for(int i=0; i<v.size(); i++)
-        cout<<v[i].first<<" ";
-    cout<<"\n";
-    cout<<"select=";
-    for(int i=0; i<v.size(); i++)
-        cout<<v[i].second<<" ";
-    cout<<"\n-------------------------------\n";
-}
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    int n;
+    GO_FAST
+
+    lli n;
     cin>>n;
-    int sum=0;
-    vector<pair<int,char>> a;
-    int temp;
-    char selected;
-    int counter=0;
+    lli a[n];
+    lli dp[3][n];
+
     for(int i=0; i<n; i++)
-    {
-        cin>>temp;
-        a.push_back(make_pair(temp,'X'));
-    }
+        cin>>a[i];
 
-    if(n == 1)
+    for(int i=n-1; i>=0; i--)
     {
-        if(a[0].first == 0)
-            cout<<1<<"\n";
-        else
-            cout<<0<<"\n";
-    }
-    else
-    {
-        for(int i=0; i<n; i++)
+        if(i == n-1)
         {
-            if(a[i].first == 0)
-            {
-                selected = 'N';
-            }
-            else if(a[i].first == 1)
-            {
-                if(i!=0)
-                {
-                    if(a[i-1].second == 'C')
-                        selected = 'N';
-                    else
-                        selected = 'C';
-                }
-                else
-                    selected = 'C';
-            }
-            else if(a[i].first == 2)
-            {
-                if(i!=0)
-                {
-                    if(a[i-1].second == 'G')
-                        selected = 'N';
-                    else
-                        selected = 'G';
-                }
-                else
-                    selected = 'G';
-            }
-            else
-            {
-                if( i!=0 && i!=(n-1) )
-                {
-                    if( (a[i-1].first == 'G' && a[i+1].first == 1) || (a[i-1].first == 'C' && a[i+1].first == 2) )
-                        selected = 'N';
-                    else
-                        selected = 'C';
-                }
-                else
-                {
-                    if(i == 0)
-                    {
-                        if(a[i+1].first = 0)
-                            selected = 'C';
-                        else if(a[i+1].first = 1)
-                            selected = 'G';
-                        else if(a[i+1].first = 2)
-                            selected = 'C';
-                        else
-                            selected ='C';
-                    }
-                    else
-                    {
-                        if(a[i-1].second = 'C')
-                            selected = 'G';
-                        else if(a[i-1].second = 'G')
-                            selected = 'C';
-                        if(a[i-1].second = 'N')
-                            selected = 'C';
-                        else
-                            selected ='C';
+            dp[0][i] = 1;
+            dp[1][i] = 0;
+            dp[2][i] = 0;
 
-                    }
-
-                }
+            if(a[i]== 2)
+                dp[1][i] = INT_MAX;
+            else if(a[i] == 1)
+                dp[2][i] = INT_MAX;
+            else if(a[i] == 0)
+            {
+                dp[1][i] = INT_MAX;
+                dp[2][i] = INT_MAX;
             }
-            a[i].second = selected;
-            if(selected == 'N')
-                counter++;
+
         }
-
-        pair_printer(a);
-        cout<<counter<<"\n";
+        else
+        {
+            dp[0][i] = 1 + min(dp[0][i+1],min(dp[1][i+1],dp[2][i+1]));
+            dp[1][i] = min(dp[0][i+1],dp[2][i+1]);
+            dp[2][i] = min(dp[0][i+1],dp[1][i+1]);
+            if(a[i] == 1)
+                dp[2][i] = INT_MAX;
+            else if(a[i] == 2)
+                dp[1][i] = INT_MAX;
+            else if(a[i] == 0)
+            {
+                dp[1][i] = INT_MAX;
+                dp[2][i] = INT_MAX;
+            }
+        }
     }
-
+    /*
+    cout<<"\n-----------------------\n";
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(dp[i][j] == INT_MAX)
+                cout<<"- ";
+            else
+            cout<<dp[i][j]<<" ";
+        }
+        cout<<"\n";
+    }
+    cout<<"\n-----------------------\n"; */
+    cout<<min(dp[0][0],min(dp[1][0],dp[2][0]))<<"\n";
     return 0;
 }

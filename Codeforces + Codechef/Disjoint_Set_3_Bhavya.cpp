@@ -6,24 +6,21 @@
 #include<algorithm>
 #include<cmath>
 #include<climits>
-#define usi unsigned short int
-#define ui unsigned int
-#define ulli unsigned long long int
 #define lli long long int
 #define GO_FAST ios_base::sync_with_stdio(0);ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 using namespace std;
 
 class Disjoint_set
 {
-public:
     lli *parent;
     lli sz;
-
-    Disjoint_set(lli sizze)
+    public:
+    Disjoint_set(lli n)
     {
-        sz = sizze;
-        parent = new lli[sz];
-        for(int i=0; i<sz; i++)
+        sz = n+1;
+        parent = new lli[n+1];
+
+        for(int i=1;i<=n;i++)
             parent[i] = -1;
     }
 
@@ -38,6 +35,7 @@ public:
                 parent[x] = abs_p; //path compression
             return abs_p;
         }
+
     }
 
     void Union(lli a,lli b)
@@ -47,17 +45,18 @@ public:
         cout<<"Parent of a = "<<pa<<" Parent of b = "<<pb<<"\n";
         if(pa != pb)
         {
-            lli size_a = abs(parent[pa]);
-            lli size_b = abs(parent[pb]);
-            if(size_a >= size_b)
+            lli spa = abs(parent[pa]);
+            lli spb = abs(parent[pb]);
+
+            if(spa >= spb) //parent pa
             {
-                parent[pa] += parent[pb];
                 parent[pb] = pa;
+                parent[pa] -= spb;
             }
-            else
+            else //parent pb
             {
-                parent[pb] += parent[pa];
                 parent[pa] = pb;
+                parent[pb] -= spa;
             }
         }
         else
@@ -67,38 +66,32 @@ public:
     void Display()
     {
         cout<<"\n-----------------\n";
-        for(int i=0; i<sz; i++)
+        for(int i=1; i<sz; i++)
             cout<<parent[i]<<" ";
         cout<<"\n-----------------\n";
     }
 
-    lli No_of_Disjoint_Set()
-    {
-        lli c=0;
-        for(int i=0;i<sz;i++)
-        {
-            if(parent[i] < 0)
-                c++;
-        }
-        return c;
-    }
 };
-
 
 int main()
 {
     //GO_FAST
-    lli n;
-    cin>>n;
-    Disjoint_set d(10);
-    d.Display();
+    lli n,m;
+    cin>>n>>m;
+    Disjoint_set d(n);
+    map<lli,vector<lli>> g;
 
-    for(lli i=0; i<n; i++)
+    for(int i=0;i<m;i++)
     {
         lli x,y;
         cin>>x>>y;
+
+        g[x].push_back(y);
+        g[y].push_back(x);
+
         d.Union(x,y);
         d.Display();
     }
+
     return 0;
 }
