@@ -10,41 +10,69 @@
 #define GO_FAST ios_base::sync_with_stdio(0);ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 using namespace std;
 
+
+/*
 void vector_printer( vector<lli> v)
 {
     cout<<"\n------------------------\n";
     for(int i=0; i<v.size(); i++)
         cout<<v[i]<<" ";
     cout<<"\n------------------------\n";
-}
+} */
 
-void get_st_indexes(string &s,string &t)
+vector<lli> get_st_indexes(string &s,string &t)
 {
-    lli i=0;
     lli j=0;
     vector<lli> x;
-    while(i < t.length())
+    for(int i=0;i<t.length();i++)
     {
-        while( j < s.length() && s[j] != s[i])
+        while( j < s.length() && s[j] != t[i])
             j++;
         x.push_back(j);
-        i++;
+        j++;
+    }
+  //  vector_printer(x);
+    return x;
+}
+
+vector<lli> get_ed_index(string &s,string &t)
+{
+    vector<lli> x;
+    lli j = s.length()-1;
+
+    for(lli i = t.length()-1;i>=0;i--)
+    {
+        while(j >=0 && s[j] != t[i])
+            j--;
+        x.push_back(j);
+        j--;
     }
 
-    vector_printer(x);
+    vector<lli> y;
+
+    for(int i=x.size()-1;i>=0;i--)
+        y.push_back(x[i]);
+
+   // vector_printer(y);
+    return y;
 }
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     lli n,m;
     cin>>n>>m;
     string s,t;
     cin>>s>>t;
     vector<lli> bg;
 
-    get_st_indexes(s,t)
+    vector<lli> a = get_st_indexes(s,t);
+    vector<lli> b = get_ed_index(s,t);
 
+    lli maxx = 0;
 
+    for(int i=0;i<t.length()-1;i++)
+        maxx = max( maxx ,( b[i+1] - a[i] ) );
+    cout<<maxx<<"\n";
     return 0;
 }

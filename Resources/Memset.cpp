@@ -20,6 +20,8 @@ int main()
     memset(a, -1, sizeof(a));  //both 0 and -1 works
    for(int i=0;i<10;i++)
        cout<<a[i];
+
+
     return 0;
 }
 
