@@ -25,7 +25,9 @@ int main()
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n;
+        cin>>n;
+        cout<<(n*(n+1))/2<<"\n";
         t--;
     }
     return 0;

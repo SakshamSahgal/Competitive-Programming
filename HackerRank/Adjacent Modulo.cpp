@@ -20,14 +20,26 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n,k;
+        cin>>n>>k;
+        lli a[n];
+        set<lli> s;
+        for(lli i=0;i<n;i++)
+        {
+            cin>>a[i];
+            s.insert((a[i]%k));
+        }
+
+        if(s.size() == 1)
+            cout<<n<<"\n";
+        else
+            cout<<1<<"\n";
         t--;
     }
     return 0;
 }
-

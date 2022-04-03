@@ -17,17 +17,32 @@ lli inf = 9e18;
 using namespace std;
 
 
-
 int main()
 {
     //GO_FAST
-    int t;
-    cin>>t;
-    while(t)
-    {
-        cout<<"happyness\n";
-        t--;
-    }
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);    int t;
+
+        lli n;
+        cin>>n;
+        lli a[n];
+        lli sum=0;
+        for(lli i=0;i<n;i++)
+        {
+            cin>>a[i];
+            sum += a[i];
+        }
+        //cout<<sum<<"\n";
+        sort(a,a+n);
+        lli m;
+        cin>>m;
+        lli b[m];
+        for(lli i=0;i<m;i++)
+        {
+           cin>>b[i];
+           cout<<(sum - a[(n - b[i])])<<"\n";
+        }
+
     return 0;
 }
 

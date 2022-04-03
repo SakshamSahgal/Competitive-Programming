@@ -5,6 +5,7 @@
 #include<map>
 #include<algorithm>
 #include<cmath>
+#include<iomanip>
 #include<climits>
 #define lli long long int
 #define GO_FAST ios_base::sync_with_stdio(0);ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
@@ -21,13 +22,15 @@ using namespace std;
 int main()
 {
     //GO_FAST
-    int t;
-    cin>>t;
-    while(t)
-    {
-        cout<<"happyness\n";
-        t--;
-    }
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+
+        long double a,b;
+        cin>>a>>b;
+        long double x = a/(sqrtl(a*a + b*b));
+        long double y = b/(sqrtl(a*a + b*b));
+        cout<<setprecision(20)<<x<<" "<<y<<"\n";
+
     return 0;
 }
 

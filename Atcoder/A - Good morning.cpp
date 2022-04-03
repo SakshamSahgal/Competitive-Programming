@@ -21,13 +21,24 @@ using namespace std;
 int main()
 {
     //GO_FAST
-    int t;
-    cin>>t;
-    while(t)
-    {
-        cout<<"happyness\n";
-        t--;
-    }
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+
+        lli a,b,c,d;
+        cin>>a>>b>>c>>d;
+        if(a == c)
+        {
+            if(b == d)
+                cout<<"Takahashi\n";
+            else if(b < d)
+              cout<<"Takahashi\n";
+            else
+                cout<<"Aoki\n";
+        }
+        else if( a < c)
+            cout<<"Takahashi\n";
+        else
+            cout<<"Aoki\n";
+
     return 0;
 }
-

@@ -17,24 +17,54 @@ lli inf = 9e18;
 using namespace std;
 
 
+template<typename Z>
+void Vec_2d_printer(vector<vector<Z>> x)
+{
+    cout<<"\n--------------------\n";
+    for(auto i:x)
+    {
+        for(auto j:i)
+        cout<<j<<" ";
+        cout<<"\n";
+    }
+    cout<<"\n--------------------\n";
+}
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        lli a,b;
-        cin>>a>>b;
-        if(b == 0)
-            cout<<a+1<<"\n";
-        else if(a == 0)
-            cout<<a+1<<"\n";
-        else
-        cout<<a + 2*b + 1<<"\n";
+        lli n,k;
+        cin>>n>>k;
+        lli a[n];
+        map<lli,vector<lli>> g;
+        for(int i=0;i<n;i++)
+        {
+            cin>>a[i];
+            g[a[i]].push_back(i);
+        }
+        sort(a,a+n);
+        n = unique(a, a + n) - a;
+
+        vector<vector<lli>> ps(2,vector<lli>(n));
+        lli mini = inf;
+        lli maxx = -inf;
+        //cout<<"w";
+        for(lli i=0;i<n;i++)
+        {
+            mini = min(mini,g[a[i]][0]);
+            maxx = max(maxx,g[a[i]][g[a[i]].size()-1]);
+            ps[0][i] = mini;
+            ps[1][i] = maxx;
+        }
+
+        Vec_2d_printer(ps);
+
 
         t--;
     }

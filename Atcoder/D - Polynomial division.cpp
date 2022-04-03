@@ -20,24 +20,51 @@ using namespace std;
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    int t;
-    cin>>t;
-    while(t)
-    {
-        lli a,b;
-        cin>>a>>b;
-        if(b == 0)
-            cout<<a+1<<"\n";
-        else if(a == 0)
-            cout<<a+1<<"\n";
-        else
-        cout<<a + 2*b + 1<<"\n";
 
-        t--;
+    lli n,m;
+    cin>>n>>m;
+    lli b[m+1];
+    lli a[n+1];
+    lli c[n+m+1];
+
+    for(lli i=n; i>=0; i--)
+        cin>>a[i];
+
+    for(lli i=(n+m); i>=0; i--)
+        cin>>c[i];
+
+    for(lli i=0; i<=m; i++)
+    {
+        if(i == 0)
+        {
+            if(a[0] == 0)
+                b[i] = 0;
+            else
+                b[i] = c[0]/a[0];
+        }
+
+        else
+        {
+            lli sum = 0;
+            for(lli j=0,k=i-1; j<i; j++,k--)
+            {
+                if(j+1 < n+1 && k < (m+1))
+                    sum += (a[j+1]*b[k]);
+            }
+            if(a[0] == 0)
+                b[i] = 0;
+            else
+            b[i] = (c[i] - sum)/a[0];
+        }
     }
+
+    for(lli i=m; i>=0; i--)
+        cout<<b[i]<<" ";
+    cout<<"\n";
+
     return 0;
 }
 

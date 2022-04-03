@@ -20,12 +20,45 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n;
+        cin>>n;
+        lli ans=0;
+        string a;
+        cin>>a;
+
+        for(int i=0;i<n;i++)
+        {
+            lli noo = 0;
+            bool found=0;
+            if(a[i] == '0')
+            {
+                for(int j=i+1;j<n;j++)
+                {
+                    if(a[j] == '0')
+                    {
+                        found = 1;
+                        break;
+                    }
+                    else
+                        noo++;
+                }
+            }
+
+            if(found)
+            {
+                if(noo < 2)
+                     ans += 2 - noo;
+            }
+        }
+
+        cout<<ans<<"\n";
         t--;
     }
     return 0;

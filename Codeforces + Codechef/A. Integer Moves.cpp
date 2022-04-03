@@ -20,12 +20,20 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli x,y;
+        cin>>x>>y;
+        long double d = sqrt(x*x + y*y);
+        if(x == 0 && y == 0)
+            cout<<0<<"\n";
+        else if(d == (lli)d)
+            cout<<1<<"\n";
+        else
+            cout<<2<<"\n";
         t--;
     }
     return 0;

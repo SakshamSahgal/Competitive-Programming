@@ -20,14 +20,30 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
-    int t;
-    cin>>t;
-    while(t)
+    GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+
+    lli n;
+    cin>>n;
+    lli a[n];
+    lli dp[n];
+    dp[0] = 0;
+    for(lli i=0; i<n; i++)
+        cin>>a[i];
+    lli ans=0;
+    for(int i=1; i<n; i++)
     {
-        cout<<"happyness\n";
-        t--;
+        lli x;
+        if(i+1 < n)
+            x = max((max(dp[i-1],a[i+1] - 1) - a[i]),(lli)0);
+        else
+            x = max((dp[i-1] - a[i]),(lli)0);
+        dp[i] = a[i] + x;
+        ans += x;
     }
+    array_printer(dp,n);
+    cout<<ans<<"\n";
+
     return 0;
 }
-

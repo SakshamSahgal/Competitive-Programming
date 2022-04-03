@@ -20,12 +20,31 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        string s;
+        cin>>s;
+        map<char,vector<lli>> g;
+
+        for(int i=0;i<s.length();i++)
+            g[s[i]].push_back(i);
+        lli id=0;
+        for(int i=0;i<s.length();i++)
+        {
+            auto ptr = lower_bound(g[s[i]].begin(),g[s[i]].end(),i+1);
+            if(ptr == g[s[i]].end())
+            {
+                id = i;
+                break;
+            }
+        }
+
+        for(int i=id;i<s.length();i++)
+            cout<<s[i];
+        cout<<"\n";
         t--;
     }
     return 0;

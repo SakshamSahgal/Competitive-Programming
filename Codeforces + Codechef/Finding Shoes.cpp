@@ -20,12 +20,16 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n,m;
+        cin>>n>>m;
+        cout<<(2*n - min(n,m))<<"\n";
         t--;
     }
     return 0;

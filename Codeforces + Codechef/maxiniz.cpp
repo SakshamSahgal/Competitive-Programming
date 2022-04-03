@@ -20,14 +20,21 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n, k;
+        cin >> n >> k;
+        vector<lli> a(n);
+        for (lli i = 0; i < n; i++)
+            cin >> a[i];
+        sort(a.begin(), a.end());
+        cout << (a[min(k, n - 1)]) << "\n";
         t--;
     }
     return 0;
 }
-

@@ -20,12 +20,34 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n;
+        cin>>n;
+        lli a[n];
+        for(int i=0; i<n; i++)
+            cin>>a[i];
+        sort(a,a+n);
+        if(n == 1)
+        {
+            if(a[0] == 1)
+                cout<<"YES\n";
+            else
+                cout<<"NO\n";
+        }
+        else
+        {
+            bool fail = 0;
+            if(a[n-1] - a[n-2] <= 1)
+                cout<<"YES\n";
+            else
+                cout<<"NO\n";
+        }
         t--;
     }
     return 0;

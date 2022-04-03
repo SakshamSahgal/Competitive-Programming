@@ -20,14 +20,47 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n;
+        cin>>n;
+        lli a[n];
+        map<lli,lli>f;
+        for(int i=0; i<n; i++)
+        {
+            cin>>a[i];
+            f[a[i]]++;
+        }
+        sort(a,a+n);
+        if(a[0] == a[n-1])
+            cout<<"YES\n";
+        else
+        {
+            if(f[0] > 0 && f[1] > 0)
+                cout<<"NO\n";
+            else if(f[1] == 0)
+                cout<<"YES\n";
+            else
+            {
+
+                for(int i=0; i<n-1; i++)
+                {
+                    if(a[i] + 1 == a[i+1])
+                    {
+                        cout<<"NO\n";
+                        goto l;
+                    }
+                }
+                cout<<"YES\n";
+            }
+        }
+
+
+l:
         t--;
     }
     return 0;
 }
-

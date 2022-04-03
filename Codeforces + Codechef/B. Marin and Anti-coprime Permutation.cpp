@@ -17,15 +17,33 @@ lli inf = 9e18;
 using namespace std;
 
 
+lli mod = 998244353;
+
+
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n;
+        cin>>n;
+        lli ans=1;
+        if(n%2 == 1)
+            cout<<0<<"\n";
+        else
+        {
+            for(lli i=1; i<=n/2; i++)
+                ans = ((ans%mod)*(i%mod))%mod;
+            for(lli i=1; i<=n/2; i++)
+                ans = ((ans%mod)*(i%mod))%mod;
+            cout<<ans<<"\n";
+        }
+
         t--;
     }
     return 0;

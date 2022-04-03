@@ -17,15 +17,20 @@ lli inf = 9e18;
 using namespace std;
 
 
-
 int main()
 {
     //GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli m;
+        cin>>m;
+        lli l=5;
+        lli h=
+
         t--;
     }
     return 0;

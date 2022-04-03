@@ -25,9 +25,21 @@ int main()
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n;
+        cin>>n;
+        if(n%2 == 1)
+            cout<<2<<"\n";
+        else
+        {
+            long double d = sqrtl((1 + 8*x));
+            if( d == lli(d) )
+                cout<<((lli)d-1)/2<<"\n";
+            else
+            {
+
+            }
+        }
         t--;
     }
     return 0;
 }
-

@@ -16,16 +16,37 @@ lli inf = 9e18;
 #define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
 
-
+void set_printer(set<lli> x)
+{
+    cout<<"\n---------------------------\n";
+    for(auto i =x.begin();i!=x.end();i++)
+        cout<<*i<<" ";
+    cout<<"\n---------------------------\n";
+}
 
 int main()
 {
     //GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli x[10][10];
+        set<lli> y;
+        for(lli i=0;i<10;i++)
+        {
+            for(lli j=0;j<10;j++)
+            {
+                 x[i][j] = (i+j)*(i*i + j*j);
+                 y.insert(x[i][j]);
+            }
+
+        }
+        array_2d_printer(x,10,10);
+        cout<<y.size()<<"\n";
+         set_printer(y);
         t--;
     }
     return 0;

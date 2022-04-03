@@ -17,15 +17,39 @@ lli inf = 9e18;
 using namespace std;
 
 
-
 int main()
 {
-    //GO_FAST
+    GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n;
+        cin>>n;
+        lli a[n];
+        for(int i=0;i<n;i++)
+            cin>>a[i];
+
+        bool increasing=1;
+        lli ans=0;
+        for(int i=n-1;i>0;i--)
+        {
+
+            if(a[i-1] < a[i])
+                increasing = 0;
+
+            if(!increasing)
+            {
+                if(a[i-1] > a[i])
+                {
+                    ans = i;
+                    break;
+                }
+            }
+        }
+        cout<<ans<<"\n";
         t--;
     }
     return 0;

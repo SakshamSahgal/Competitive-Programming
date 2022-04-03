@@ -20,12 +20,44 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n,q;
+        cin>>n>>q;
+        string s;
+        cin>>s;
+        lli a[n] = {0};
+        for(lli i=0; i<q; i++)
+        {
+            lli l,r;
+            cin>>l>>r;
+            l--;
+            r--;
+            a[l]++;
+            if(r+1< n)
+            a[r+1]--;
+        }
+
+        for(int i=1;i<n;i++)
+           a[i] += a[i-1];
+
+        //array_printer(a,n);
+        for(int i=0;i<n;i++)
+        {
+            if(a[i]%2 == 1)
+            {
+                if(s[i] == '0')
+                    s[i] = '1';
+                else
+                    s[i] = '0';
+            }
+        }
+        cout<<s<<"\n";
         t--;
     }
     return 0;

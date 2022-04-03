@@ -21,11 +21,37 @@ using namespace std;
 int main()
 {
     //GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
+    lli ct=1;
     while(t)
     {
-        cout<<"happyness\n";
+        lli r,c;
+        cin>>r>>c;
+        cout<<"Case #"<<(ct++)<<":\n";
+        for(lli i=0; i < 2*r + 1 ; i++)
+        {
+            for( lli j=0; j < 2*c + 1 ; j++)
+            {
+                if( i < 2 && j < 2)
+                    cout<<".";
+                else
+                {
+                    if( i%2 == 0 && j%2 == 0)
+                        cout<<"+";
+                    else if(i%2 == 1 && j%2 == 0)
+                        cout<<"|";
+                    else if(i%2 == 0 && j%2 == 1)
+                        cout<<"-";
+                    else
+                        cout<<".";
+                }
+
+            }
+            cout<<"\n";
+        }
         t--;
     }
     return 0;

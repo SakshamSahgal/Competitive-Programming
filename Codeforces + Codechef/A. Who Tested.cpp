@@ -21,13 +21,14 @@ using namespace std;
 int main()
 {
     //GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        cout<<"Fox\n";
         t--;
     }
     return 0;
 }
-

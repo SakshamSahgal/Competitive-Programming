@@ -21,12 +21,26 @@ using namespace std;
 int main()
 {
     //GO_FAST
-    int t;
-    cin>>t;
-    while(t)
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+
+        lli n;
+        cin>>n;
+        lli a[n];
+        map<lli,lli> f;
+        for(int i=0;i<n;i++)
+        {
+            cin>>a[i];
+            f[a[i]]++;
+        }
+
+    for(lli i=0;i<=2001;i++)
     {
-        cout<<"happyness\n";
-        t--;
+        if(f[i] == 0)
+        {
+            cout<<i<<"\n";
+            break;
+        }
     }
     return 0;
 }

@@ -20,14 +20,18 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n;
+        cin>>n;
+        if(n%2 == 1)
+            cout<<"-"<<(n/2 + 1)<<"\n";
+        else
+            cout<<n/2<<"\n";
         t--;
     }
     return 0;
 }
-

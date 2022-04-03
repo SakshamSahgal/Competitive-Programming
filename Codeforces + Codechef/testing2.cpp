@@ -20,12 +20,23 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n;
+        cin>>n;
+        lli a[n];
+        vector<pair<lli,lli>> v;
+        for(int i=0;i<n;i++)
+        {
+           cin>>a[i];
+           v.push_back({a[i],i});
+        }
+
+        sort(v.begin(),v.end());
+        cout<<v[0].second+1<<" "<<v[n-1].second+1<<"\n";
         t--;
     }
     return 0;

@@ -20,14 +20,28 @@ using namespace std;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     int t;
     cin>>t;
     while(t)
     {
-        cout<<"happyness\n";
+        lli n,b,x,y;
+        cin>>n>>b>>x>>y;
+        lli c[n+1];
+        c[0] = 0;
+        for(int i=1;i<=n;i++)
+        {
+            if(c[i-1] + x <= b)
+                c[i] = c[i-1] + x;
+            else
+                c[i] = c[i-1] - y;
+        }
+
+        lli s=0;
+        for(int i=0;i<=n;i++)
+            s+=c[i];
+        cout<<s<<"\n";
         t--;
     }
     return 0;
 }
-
