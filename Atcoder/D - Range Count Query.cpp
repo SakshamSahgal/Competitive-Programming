@@ -27,39 +27,52 @@ int main()
     lli n;
     cin>>n;
     lli a[n];
-
+    map<lli,vector<lli>> g;
     for(int i=0; i<n; i++)
-        cin>>a[i];
-
-    lli s=0;
-    vector<pair<lli,pair<lli,lli>>> v;
-    for(int i=n-1; i>=0; i--)
     {
-        lli to_add = 0;
-        if((a[i]+s)%n != i)
-        {
-            lli nm;
-
-            if( (a[i]+s)%n == 0 )
-                nm = (a[i]+s);
-            else
-                nm = ((a[i]+s)/n + 1)*n;
-
-           // cout<<"nearest multiple = "<<nm<<"\n";
-
-            to_add = (nm + i) - (a[i] + s);
-
-          //  cout<<" val = "<<(a[i]+s)<<" to add = "<<to_add<<"\n";
-            v.push_back({1,{i+1,to_add}});
-            s += to_add;
-        }
+        cin>>a[i];
+        g[a[i]].push_back(i);
     }
 
-    v.push_back({2,{n,n}});
-    cout<<v.size()<<"\n";
 
-    for(auto i:v)
-        cout<<i.first<<" "<<i.second.first<<" "<<i.second.second<<"\n";
+    lli q;
+    cin>>q;
+
+    while(q--)
+    {
+        lli l,r,x;
+        cin>>l>>r>>x;
+        l--;
+        r--;
+
+        if(g[x].size() == 0)
+            cout<<0<<"\n";
+        else
+        {
+            auto st = lower_bound(g[x].begin(),g[x].end(),l);
+            auto ed = lower_bound(g[x].begin(),g[x].end(),r+1);
+            lli c;
+            if(st == g[x].end())
+                c=0;
+            else if(ed == g[x].end())
+            {
+                lli id = st - g[x].begin();
+                //cout<<"id = "<<id<<"\n";
+                c = g[x].size() - id;
+            }
+            else
+            {
+                lli st_id = st - g[x].begin();
+                lli ed_id = ed - g[x].begin();
+
+                c = ed_id - st_id;
+            }
+
+            cout<<c<<"\n";
+        }
+
+    }
+
 
     return 0;
 }

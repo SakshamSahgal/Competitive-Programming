@@ -6,6 +6,7 @@
 #include<algorithm>
 #include<cmath>
 #include<climits>
+#include<deque>
 #define lli long long int
 #define GO_FAST ios_base::sync_with_stdio(0);ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 // basic debugging macros
@@ -17,49 +18,53 @@ lli inf = 9e18;
 using namespace std;
 
 
+void deque_printer(deque<char> z)
+{
+    while(!z.empty())
+    {
+        cout<<z.front();
+        z.pop_front();
+    }
+}
 
 int main()
 {
     GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-
-    lli n;
-    cin>>n;
-    lli a[n];
-
-    for(int i=0; i<n; i++)
-        cin>>a[i];
-
-    lli s=0;
-    vector<pair<lli,pair<lli,lli>>> v;
-    for(int i=n-1; i>=0; i--)
+    int t;
+    cin>>t;
+    while(t)
     {
-        lli to_add = 0;
-        if((a[i]+s)%n != i)
+        lli n,r,b;
+        cin>>n>>r>>b;
+        lli c[b+1] = {0};
+        lli rc=0;
+        lli g=0;
+        while(1)
         {
-            lli nm;
-
-            if( (a[i]+s)%n == 0 )
-                nm = (a[i]+s);
-            else
-                nm = ((a[i]+s)/n + 1)*n;
-
-           // cout<<"nearest multiple = "<<nm<<"\n";
-
-            to_add = (nm + i) - (a[i] + s);
-
-          //  cout<<" val = "<<(a[i]+s)<<" to add = "<<to_add<<"\n";
-            v.push_back({1,{i+1,to_add}});
-            s += to_add;
+            for(int i=0; i<b+1; i++)
+            {
+                c[i]++;
+                //cout<<"sd";
+                rc++;
+                if(rc == r)
+                   {
+                       goto l;
+                   }
+            }
         }
+        l:
+        //array_printer(c,b+1);
+        for(int i=0;i<b+1;i++)
+        {
+            for(int j=0;j<c[i];j++)
+                cout<<"R";
+            if(i != b)
+            cout<<"B";
+        }
+        cout<<"\n";
+        t--;
     }
-
-    v.push_back({2,{n,n}});
-    cout<<v.size()<<"\n";
-
-    for(auto i:v)
-        cout<<i.first<<" "<<i.second.first<<" "<<i.second.second<<"\n";
-
     return 0;
 }

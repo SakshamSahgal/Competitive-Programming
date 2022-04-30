@@ -11,55 +11,40 @@
 // basic debugging macros
 lli __i__,__j__;
 lli inf = 9e18;
+lli mod = 1e9 + 7;
 #define line_printer(l) cout<<"\n"; for(__i__=0;__i__<l;__i__++){cout<<"-";}cout<<endl;
 #define array_printer(a,l) cout<<#a<<": ";for(__i__=0;__i__<l;__i__++){cout<<a[__i__]<<" ";}cout<<"\n";
 #define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
 
+lli dp[1000001];
+
+void pair_printer(vector<pair<lli,lli>> v)
+{
+    cout<<"\n------------pair------------\n";
+    for(int i=0; i<v.size(); i++)
+        cout<<v[i].first<<" "<<v[i].second<<"\n";
+    cout<<"\n-------------------------------\n";
+}
+
 
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
 
     lli n;
     cin>>n;
-    lli a[n];
-
-    for(int i=0; i<n; i++)
-        cin>>a[i];
-
-    lli s=0;
-    vector<pair<lli,pair<lli,lli>>> v;
-    for(int i=n-1; i>=0; i--)
+    dp[0] = 1;
+    dp[1] = 1;
+    for(lli i=2; i<=n; i++)
     {
-        lli to_add = 0;
-        if((a[i]+s)%n != i)
-        {
-            lli nm;
-
-            if( (a[i]+s)%n == 0 )
-                nm = (a[i]+s);
-            else
-                nm = ((a[i]+s)/n + 1)*n;
-
-           // cout<<"nearest multiple = "<<nm<<"\n";
-
-            to_add = (nm + i) - (a[i] + s);
-
-          //  cout<<" val = "<<(a[i]+s)<<" to add = "<<to_add<<"\n";
-            v.push_back({1,{i+1,to_add}});
-            s += to_add;
-        }
+        dp[i] = 0;
+        for(lli j = 1; j<=(min(i,(lli)6)); j++)
+            dp[i] = (dp[i]%mod + dp[i-j]%mod)%mod;
     }
-
-    v.push_back({2,{n,n}});
-    cout<<v.size()<<"\n";
-
-    for(auto i:v)
-        cout<<i.first<<" "<<i.second.first<<" "<<i.second.second<<"\n";
-
+    cout<<dp[n];
     return 0;
 }

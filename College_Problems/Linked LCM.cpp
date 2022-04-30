@@ -16,50 +16,56 @@ lli inf = 9e18;
 #define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
 
-
+lli lcm(lli a,lli b)
+{
+    lli z = (a*b)/__gcd(a,b);
+    return z;
+}
 
 int main()
 {
     GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-
-    lli n;
-    cin>>n;
-    lli a[n];
-
-    for(int i=0; i<n; i++)
-        cin>>a[i];
-
-    lli s=0;
-    vector<pair<lli,pair<lli,lli>>> v;
-    for(int i=n-1; i>=0; i--)
+    int t;
+    cin>>t;
+    while(t)
     {
-        lli to_add = 0;
-        if((a[i]+s)%n != i)
+        lli n;
+        cin>>n;
+        lli a[n];
+        lli b[n];
+
+        for(int i=0;i<n;i++)
+            cin>>a[i];
+
+        for(int i=0;i<n;i++)
+            cin>>b[i];
+
+        lli la[n];
+        lli lb[n];
+
+        la[0] = a[0];
+        lb[n-1] = b[n-1];
+
+        for(int i=1;i<n;i++)
+            la[i] = lcm(a[i],la[i-1]);
+
+        for(int i=n-2;i>=0;i--)
+            lb[i] = lcm(b[i],lb[i+1]);
+
+        //array_printer(la,n);
+        //array_printer(lb,n);
+
+        lli z = max(la[n-1],lb[0]);
+
+        for(int i=0;i<n-1;i++)
         {
-            lli nm;
-
-            if( (a[i]+s)%n == 0 )
-                nm = (a[i]+s);
-            else
-                nm = ((a[i]+s)/n + 1)*n;
-
-           // cout<<"nearest multiple = "<<nm<<"\n";
-
-            to_add = (nm + i) - (a[i] + s);
-
-          //  cout<<" val = "<<(a[i]+s)<<" to add = "<<to_add<<"\n";
-            v.push_back({1,{i+1,to_add}});
-            s += to_add;
+            lli h = lcm(la[i],lb[i+1]);
+            z = max(z,h);
         }
+        cout<<z<<"\n";
+        t--;
     }
-
-    v.push_back({2,{n,n}});
-    cout<<v.size()<<"\n";
-
-    for(auto i:v)
-        cout<<i.first<<" "<<i.second.first<<" "<<i.second.second<<"\n";
-
     return 0;
 }

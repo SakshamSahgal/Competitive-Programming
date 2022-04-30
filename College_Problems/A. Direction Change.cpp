@@ -23,43 +23,40 @@ int main()
     GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-
-    lli n;
-    cin>>n;
-    lli a[n];
-
-    for(int i=0; i<n; i++)
-        cin>>a[i];
-
-    lli s=0;
-    vector<pair<lli,pair<lli,lli>>> v;
-    for(int i=n-1; i>=0; i--)
+    int t;
+    cin>>t;
+    while(t)
     {
-        lli to_add = 0;
-        if((a[i]+s)%n != i)
+        lli n,m;
+        cin>>n>>m;
+        if(n == m)
+            cout<<2 * (min(n,m) - 1)<<"\n";
+        else
         {
-            lli nm;
+            if(n == 1 || m == 1)
+            {
+                if(n == 1 && m == 2)
+                    cout<<1<<"\n";
+                else if(m == 1 && n == 2)
+                cout<<1<<"\n";
+                else
+                    cout<<-1<<"\n";
 
-            if( (a[i]+s)%n == 0 )
-                nm = (a[i]+s);
+            }
             else
-                nm = ((a[i]+s)/n + 1)*n;
+            {
+                lli diff = (max(n,m) - min(n,m));
 
-           // cout<<"nearest multiple = "<<nm<<"\n";
+                if(diff%2 == 0)
+                    cout<<2 * (min(n,m) - 1) + 2*diff<<"\n";
+                else
+                     cout<<2 * (min(n,m) - 1) + 2*diff - 1<<"\n";
+            }
 
-            to_add = (nm + i) - (a[i] + s);
-
-          //  cout<<" val = "<<(a[i]+s)<<" to add = "<<to_add<<"\n";
-            v.push_back({1,{i+1,to_add}});
-            s += to_add;
         }
+
+
+            t--;
     }
-
-    v.push_back({2,{n,n}});
-    cout<<v.size()<<"\n";
-
-    for(auto i:v)
-        cout<<i.first<<" "<<i.second.first<<" "<<i.second.second<<"\n";
-
     return 0;
 }

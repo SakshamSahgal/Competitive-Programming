@@ -20,46 +20,31 @@ using namespace std;
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
 
-    lli n;
-    cin>>n;
-    lli a[n];
+    string s;
+    cin>>s;
 
-    for(int i=0; i<n; i++)
-        cin>>a[i];
-
-    lli s=0;
-    vector<pair<lli,pair<lli,lli>>> v;
-    for(int i=n-1; i>=0; i--)
+    for(int i=0; i<=9; i++)
     {
-        lli to_add = 0;
-        if((a[i]+s)%n != i)
+        bool not_found = 1;
+        for(int j=0; j<=s.length(); j++)
         {
-            lli nm;
+            if( (s[j]-'0') == i)
+            {
+                not_found = 0;
+                break;
+            }
+        }
 
-            if( (a[i]+s)%n == 0 )
-                nm = (a[i]+s);
-            else
-                nm = ((a[i]+s)/n + 1)*n;
-
-           // cout<<"nearest multiple = "<<nm<<"\n";
-
-            to_add = (nm + i) - (a[i] + s);
-
-          //  cout<<" val = "<<(a[i]+s)<<" to add = "<<to_add<<"\n";
-            v.push_back({1,{i+1,to_add}});
-            s += to_add;
+        if(not_found)
+        {
+            cout<<i<<"\n";
+            return 0;
         }
     }
-
-    v.push_back({2,{n,n}});
-    cout<<v.size()<<"\n";
-
-    for(auto i:v)
-        cout<<i.first<<" "<<i.second.first<<" "<<i.second.second<<"\n";
 
     return 0;
 }

@@ -20,12 +20,36 @@ vector<pair<lli,lli>> consecutive_freq(lli *a,lli n)
     {
         lli c=1;
         lli j=i+1;
+
         while( j < n && a[j] == a[i])
         {
             j++;
             c++;
         }
+        cout<<" from = "<<i<<" to "<<j-1<<"\n";
         x.push_back({a[i],c});
+        i = j;
+    }
+    return x;
+}
+
+
+vector<pair<pair<lli,lli>,pair<lli,lli>>> consecutive_freq2(lli *a,lli n) //val count , from , to
+{
+    vector<pair<pair<lli,lli>,pair<lli,lli>>> x;
+    lli i=0;
+    while(i < n)
+    {
+        lli c=1;
+        lli j=i+1;
+
+        while( j < n && a[j] == a[i])
+        {
+            j++;
+            c++;
+        }
+        //cout<<" from = "<<i<<" to "<<j-1<<"\n";
+        x.push_back({{a[i],c},{i,j-1}});
         i = j;
     }
     return x;
@@ -44,6 +68,14 @@ int main()
     //GO_FAST
     lli a[10] = {1,2,2,2,3,3,2,1,4,4};
     pair_printer(consecutive_freq(a,10));
+
+    vector<pair<pair<lli,lli>,pair<lli,lli>>> z = consecutive_freq2(a,10);
+    for(auto i:z)
+    {
+        cout<<i.first.first<<" "<<i.first.second<<" "<<i.second.first<<" "<<i.second.second<<"\n";
+    }
+
+
     return 0;
 }
 

@@ -23,43 +23,38 @@ int main()
     GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-
-    lli n;
-    cin>>n;
-    lli a[n];
-
-    for(int i=0; i<n; i++)
-        cin>>a[i];
-
-    lli s=0;
-    vector<pair<lli,pair<lli,lli>>> v;
-    for(int i=n-1; i>=0; i--)
+    int t;
+    cin>>t;
+    while(t)
     {
-        lli to_add = 0;
-        if((a[i]+s)%n != i)
+        lli n,m;
+        cin>>n>>m;
+        lli a[n];
+
+        for(int i=0;i<n;i++)
+            cin>>a[i];
+
+        sort(a,a+n,greater<lli>());
+        lli s=0;
+        for(int i=0;i<n;i++)
         {
-            lli nm;
-
-            if( (a[i]+s)%n == 0 )
-                nm = (a[i]+s);
+            lli z;
+            if(i == 0)
+                z = 2*a[i] + 1;
+            else if(i == 1)
+                z = 1;
             else
-                nm = ((a[i]+s)/n + 1)*n;
-
-           // cout<<"nearest multiple = "<<nm<<"\n";
-
-            to_add = (nm + i) - (a[i] + s);
-
-          //  cout<<" val = "<<(a[i]+s)<<" to add = "<<to_add<<"\n";
-            v.push_back({1,{i+1,to_add}});
-            s += to_add;
+                z = a[i-1] + 1;
+            s += z;
+            if(s > m)
+            {
+                cout<<"NO\n";
+                goto l;
+            }
         }
+        cout<<"YES\n";
+        l:
+        t--;
     }
-
-    v.push_back({2,{n,n}});
-    cout<<v.size()<<"\n";
-
-    for(auto i:v)
-        cout<<i.first<<" "<<i.second.first<<" "<<i.second.second<<"\n";
-
     return 0;
 }

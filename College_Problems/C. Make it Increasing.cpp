@@ -17,49 +17,43 @@ lli inf = 9e18;
 using namespace std;
 
 
-
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-
     lli n;
     cin>>n;
     lli a[n];
-
+    lli b[n] = {0};
     for(int i=0; i<n; i++)
         cin>>a[i];
-
-    lli s=0;
-    vector<pair<lli,pair<lli,lli>>> v;
-    for(int i=n-1; i>=0; i--)
+    lli mini = inf;
+    for(lli i=0; i<n; i++)
     {
-        lli to_add = 0;
-        if((a[i]+s)%n != i)
+        lli sum=0;
+        lli temp[n];
+        temp[i] = 0;
+        lli z=0;
+        for(lli j=i-1; j>=0; j--)
         {
-            lli nm;
-
-            if( (a[i]+s)%n == 0 )
-                nm = (a[i]+s);
-            else
-                nm = ((a[i]+s)/n + 1)*n;
-
-           // cout<<"nearest multiple = "<<nm<<"\n";
-
-            to_add = (nm + i) - (a[i] + s);
-
-          //  cout<<" val = "<<(a[i]+s)<<" to add = "<<to_add<<"\n";
-            v.push_back({1,{i+1,to_add}});
-            s += to_add;
+            lli z;
+            z = abs(temp[j+1])/a[j] + 1;
+            temp[j] = -z*a[j];
+            sum += z;
         }
+
+        for(int j=i+1;j<n;j++)
+        {
+            lli z;
+            z = abs(temp[j-1])/a[j] + 1;
+            temp[j] = z*a[j];
+            sum += z;
+        }
+        //array_printer(temp,n);
+        //cout<<"moves = "<<sum<<"\n";
+        mini = min(mini,sum);
     }
-
-    v.push_back({2,{n,n}});
-    cout<<v.size()<<"\n";
-
-    for(auto i:v)
-        cout<<i.first<<" "<<i.second.first<<" "<<i.second.second<<"\n";
-
+    cout<<mini<<"\n";
     return 0;
 }

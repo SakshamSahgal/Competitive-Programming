@@ -16,50 +16,43 @@ lli inf = 9e18;
 #define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
 
-
-
+char s[200001];
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-
-    lli n;
-    cin>>n;
-    lli a[n];
-
-    for(int i=0; i<n; i++)
-        cin>>a[i];
-
-    lli s=0;
-    vector<pair<lli,pair<lli,lli>>> v;
-    for(int i=n-1; i>=0; i--)
+    int t;
+    cin>>t;
+    while(t)
     {
-        lli to_add = 0;
-        if((a[i]+s)%n != i)
+        lli n, k;
+        cin>>n>>k;
+        lli O=k;
+        cin>>s;
+        string S=s;
+        vector<lli> res(n);
+        lli o=0;
+        for(lli i=0; i<n && k>0; ++i)
         {
-            lli nm;
-
-            if( (a[i]+s)%n == 0 )
-                nm = (a[i]+s);
-            else
-                nm = ((a[i]+s)/n + 1)*n;
-
-           // cout<<"nearest multiple = "<<nm<<"\n";
-
-            to_add = (nm + i) - (a[i] + s);
-
-          //  cout<<" val = "<<(a[i]+s)<<" to add = "<<to_add<<"\n";
-            v.push_back({1,{i+1,to_add}});
-            s += to_add;
+            s[i] ^= o;
+            if(k%2!=s[i]-'0' || i==n-1)
+                continue;
+            ++res[i];
+            --k;
+            o^=1;
         }
+        res.back() += k;
+        for(lli i=0; i<n; ++i)
+            if((O-res[i])%2)
+                S[i]^=1;
+        puts(S.c_str());
+        for(auto &x:res)
+            cout<<x<<" ";
+        //puts("");
+        cout<<"\n";
+        t--;
     }
-
-    v.push_back({2,{n,n}});
-    cout<<v.size()<<"\n";
-
-    for(auto i:v)
-        cout<<i.first<<" "<<i.second.first<<" "<<i.second.second<<"\n";
-
     return 0;
 }
+

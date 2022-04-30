@@ -17,6 +17,16 @@ lli inf = 9e18;
 using namespace std;
 
 
+bool len_poss(string s,lli len)
+{
+    for(lli i=0; i<len; i++)
+    {
+        if(s[len+i] != s[i])
+            return 0;
+    }
+    return 1;
+}
+
 
 int main()
 {
@@ -26,40 +36,20 @@ int main()
 
     lli n;
     cin>>n;
-    lli a[n];
-
-    for(int i=0; i<n; i++)
-        cin>>a[i];
-
-    lli s=0;
-    vector<pair<lli,pair<lli,lli>>> v;
-    for(int i=n-1; i>=0; i--)
+    string s;
+    cin>>s;
+    lli mini = n;
+    for(lli i=1; i<=n/2; i++)
     {
-        lli to_add = 0;
-        if((a[i]+s)%n != i)
-        {
-            lli nm;
-
-            if( (a[i]+s)%n == 0 )
-                nm = (a[i]+s);
-            else
-                nm = ((a[i]+s)/n + 1)*n;
-
-           // cout<<"nearest multiple = "<<nm<<"\n";
-
-            to_add = (nm + i) - (a[i] + s);
-
-          //  cout<<" val = "<<(a[i]+s)<<" to add = "<<to_add<<"\n";
-            v.push_back({1,{i+1,to_add}});
-            s += to_add;
-        }
+        lli val;
+        if(len_poss(s,i))
+            val = n - i + 1;
+        else
+            val = n;
+        mini = min(mini,val);
     }
 
-    v.push_back({2,{n,n}});
-    cout<<v.size()<<"\n";
-
-    for(auto i:v)
-        cout<<i.first<<" "<<i.second.first<<" "<<i.second.second<<"\n";
+    cout<<mini<<"\n";
 
     return 0;
 }

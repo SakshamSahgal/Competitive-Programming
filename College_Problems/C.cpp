@@ -17,49 +17,34 @@ lli inf = 9e18;
 using namespace std;
 
 
-
 int main()
 {
     GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-
-    lli n;
-    cin>>n;
-    lli a[n];
-
-    for(int i=0; i<n; i++)
-        cin>>a[i];
-
-    lli s=0;
-    vector<pair<lli,pair<lli,lli>>> v;
-    for(int i=n-1; i>=0; i--)
+    int t;
+    cin>>t;
+    while(t--)
     {
-        lli to_add = 0;
-        if((a[i]+s)%n != i)
+        lli n,a,b;
+        cin>>n>>a>>b;
+        vector<int> v(n+1);
+        lli sum=0;
+        for(int i=1; i<n+1; ++i)
         {
-            lli nm;
-
-            if( (a[i]+s)%n == 0 )
-                nm = (a[i]+s);
-            else
-                nm = ((a[i]+s)/n + 1)*n;
-
-           // cout<<"nearest multiple = "<<nm<<"\n";
-
-            to_add = (nm + i) - (a[i] + s);
-
-          //  cout<<" val = "<<(a[i]+s)<<" to add = "<<to_add<<"\n";
-            v.push_back({1,{i+1,to_add}});
-            s += to_add;
+            cin>>v[i];
+            sum+=v[i];
         }
+        lli ans=inf;
+        for(int i=0; i<n+1; ++i)
+        {
+            lli mine = (a+b)*(lli)v[i];
+            sum-=v[i];
+            mine+=(sum-(n-i)*(lli)v[i]) * b;
+            ans=min(ans,mine);
+        }
+        cout<<ans<<"\n";
     }
 
-    v.push_back({2,{n,n}});
-    cout<<v.size()<<"\n";
-
-    for(auto i:v)
-        cout<<i.first<<" "<<i.second.first<<" "<<i.second.second<<"\n";
-
-    return 0;
+return 0;
 }
