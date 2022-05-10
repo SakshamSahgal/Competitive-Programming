@@ -21,23 +21,26 @@ using namespace std;
 int main()
 {
     GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        lli k;
-        cin>>k;
-
-        lli x=2;
-        lli ans=0;
-        while(k%x == 0)
+        lli n,x;
+        cin>>n>>x;
+        lli a[n];
+        lli m1=0;
+        lli m2=-inf;
+        for(int i=0;i<n;i++)
         {
-            x*=2;
-            ans++;
+            cin>>a[i];
+            m2 = max(a[i],m2);
+            m1 += (a[i]%x)?a[i]/x + 1 : a[i]/x;
         }
-        cout<<ans<<"\n";
+        cout<<min(m1,m2)<<"\n";
+
         t--;
     }
     return 0;
 }
-

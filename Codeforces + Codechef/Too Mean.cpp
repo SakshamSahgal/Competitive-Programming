@@ -1,6 +1,7 @@
 #include<iostream>
 #include<cstring>
 #include<vector>
+#include<iomanip>
 #include<set>
 #include<map>
 #include<algorithm>
@@ -21,23 +22,42 @@ using namespace std;
 int main()
 {
     GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        lli k;
-        cin>>k;
+        lli n;
+        cin>>n;
+        lli a[n];
+        long double z=0;
+        long double s=0;
 
-        lli x=2;
-        lli ans=0;
-        while(k%x == 0)
+        for(int i=0;i<n;i++)
         {
-            x*=2;
-            ans++;
+            cin>>a[i];
+            s += a[i];
         }
-        cout<<ans<<"\n";
+
+        z = s/(n*(1.0));
+        sort(a,a+n,greater<lli>());
+        lli ss=0;
+        long double ans = z;
+        long double sz=0;
+        for(int i=0;i<n-1;i++)
+        {
+            ss += a[i];
+            sz++;
+            long double rem_sz = (n - sz);
+            long double s1 = ss;
+            long double s2 = s - ss;
+            long double h = (s1/sz + s2/rem_sz)/2.0;
+            //cout<<(long double)h<<"\n";
+            ans = max(ans,h);
+        }
+        cout<<setprecision(20)<<ans<<"\n";
         t--;
     }
     return 0;
 }
-

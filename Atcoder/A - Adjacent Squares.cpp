@@ -20,24 +20,27 @@ using namespace std;
 
 int main()
 {
-    GO_FAST
-    int t;
-    cin>>t;
-    while(t)
-    {
-        lli k;
-        cin>>k;
+    //GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
 
-        lli x=2;
-        lli ans=0;
-        while(k%x == 0)
-        {
-            x*=2;
-            ans++;
-        }
+        lli h,w,r,c;
+        cin>>h>>w>>r>>c;
+        lli ans=4;
+        if(r-1 < 1)
+            ans--;
+        if(c - 1 < 1)
+            ans--;
+
+        if(r + 1 > h)
+            ans--;
+
+        if(c + 1 > w)
+            ans--;
+
         cout<<ans<<"\n";
-        t--;
-    }
+
+
+
     return 0;
 }
-

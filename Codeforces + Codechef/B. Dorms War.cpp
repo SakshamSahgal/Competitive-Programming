@@ -21,23 +21,48 @@ using namespace std;
 int main()
 {
     GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
+        lli n;
+        cin>>n;
+        string s;
+        cin>>s;
+        lli prefix[n];
         lli k;
         cin>>k;
-
-        lli x=2;
-        lli ans=0;
-        while(k%x == 0)
+        map<char,lli> sp;
+        for(int i=0;i<k;i++)
         {
-            x*=2;
-            ans++;
+            char z;
+            cin>>z;
+            sp[z] = 1;
         }
-        cout<<ans<<"\n";
+        lli last = 0;
+        for(int i=0;i<n;i++)
+        {
+            if(sp[s[i]] == 1)
+                last = i;
+            prefix[i] = last;
+        }
+
+        //array_printer(prefix,n);
+        lli maxx = 0;
+        for(int i=0;i<n;i++)
+        {
+            lli moves_req;
+            if(sp[s[i]] == 1 && i != 0)
+            {
+                moves_req = i - prefix[i-1];
+                //cout<<moves_req<<"\n";
+                maxx = max(maxx,moves_req);
+            }
+        }
+        cout<<maxx<<"\n";
         t--;
     }
     return 0;
 }
-

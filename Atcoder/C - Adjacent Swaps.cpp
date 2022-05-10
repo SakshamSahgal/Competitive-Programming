@@ -20,24 +20,45 @@ using namespace std;
 
 int main()
 {
-    GO_FAST
-    int t;
-    cin>>t;
-    while(t)
-    {
-        lli k;
-        cin>>k;
+    //GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+    lli n,q;
+    cin>>n>>q;
 
-        lli x=2;
-        lli ans=0;
-        while(k%x == 0)
-        {
-            x*=2;
-            ans++;
-        }
-        cout<<ans<<"\n";
-        t--;
+    lli a[n+1];
+    lli loc[n+1];
+    for(int i=1; i<=n; i++)
+    {
+        a[i] = i;
+        loc[i] = i;
     }
+
+    while(q--)
+    {
+        lli x;
+        cin>>x;
+
+        if(loc[x] == n)
+        {
+            lli z = a[loc[x]];
+            lli y = a[loc[x]-1];
+            swap(a[loc[x]],a[loc[x]-1]);
+            swap(loc[z],loc[y]);
+        }
+        else
+        {
+            lli z = a[loc[x]];
+            lli y = a[loc[x]+1];
+            swap(a[loc[x]],a[loc[x]+1]);
+            swap(loc[z],loc[y]);
+        }
+    }
+
+    for(int i=1; i<=n; i++)
+        cout<<a[i]<<" ";
+
+
+
     return 0;
 }
-

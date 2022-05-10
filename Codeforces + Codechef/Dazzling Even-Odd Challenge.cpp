@@ -21,23 +21,42 @@ using namespace std;
 int main()
 {
     GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        lli k;
-        cin>>k;
-
-        lli x=2;
-        lli ans=0;
-        while(k%x == 0)
+        lli n;
+        cin>>n;
+        lli a[n];
+        lli s=0;
+        for(int i=0; i<n; i++)
         {
-            x*=2;
-            ans++;
+            cin>>a[i];
+            s += a[i];
         }
-        cout<<ans<<"\n";
+
+
+        if( ( (2*s)%n != 0 ) )
+            cout<<"NO\n";
+        else
+        {
+            lli y = (2*s)/n;
+            if( y%2 == 0 )
+                cout<<"NO\n";
+            else
+            {
+                if(y >= 3)
+                    cout<<"YES\n";
+                else
+                    cout<<"NO\n";
+            }
+        }
+
+
+
         t--;
     }
     return 0;
 }
-

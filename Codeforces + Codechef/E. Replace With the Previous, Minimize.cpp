@@ -20,24 +20,48 @@ using namespace std;
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        lli k;
-        cin>>k;
+        lli n,k;
+        cin>>n>>k;
+        string s;
+        cin>>s;
+        map<char,set<lli>> g;
+        for(int i=0; i<n; i++)
+            g[s[i]].insert(i);
 
-        lli x=2;
-        lli ans=0;
-        while(k%x == 0)
+
+        for(int i=0; i<n; i++)
         {
-            x*=2;
-            ans++;
-        }
-        cout<<ans<<"\n";
-        t--;
-    }
-    return 0;
-}
+            if(k == 0)
+                break;
+            while(s[i] != 'a')
+            {
+                char z = s[i];
+                for(auto j:g[z])
+                {
+                    s[j] = z-1;
+                    g[z-1].insert(j);
+                }
 
+                g[z].clear();
+                k--;
+                if(k == 0)
+                break;
+            }
+
+
+        }
+
+
+    cout<<s<<"\n";
+
+    t--;
+}
+return 0;
+}

@@ -55,12 +55,40 @@ vector<pair<pair<lli,lli>,pair<lli,lli>>> consecutive_freq2(lli *a,lli n) //val 
     return x;
 }
 
+
+vector<lli> consequtive_freq_string(string s)
+{
+    vector<lli> z;
+    int i=0;
+    while(i < s.length())
+    {
+        int j=i+1;
+        int c=1;
+        while(j < s.length() && s[j] == s[i])
+        {
+            j++;
+            c++;
+        }
+        z.push_back(c);
+        i = j;
+    }
+    return z;
+}
+
 void pair_printer(vector<pair<lli,lli>> v)
 {
 cout<<"\n------------pair------------\n";
 for(int i=0;i<v.size();i++)
     cout<<v[i].first<<" "<<v[i].second<<"\n";
 cout<<"\n-------------------------------\n";
+}
+
+void vector_printer( vector<lli> v)
+{
+    cout<<"\n------------------------\n";
+    for(int i=0; i<v.size(); i++)
+        cout<<v[i]<<" ";
+    cout<<"\n------------------------\n";
 }
 
 int main()
@@ -75,7 +103,9 @@ int main()
         cout<<i.first.first<<" "<<i.first.second<<" "<<i.second.first<<" "<<i.second.second<<"\n";
     }
 
-
+    string s;
+    s = "11001001010";
+    vector_printer(consequtive_freq_string(s));
     return 0;
 }
 

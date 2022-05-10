@@ -21,23 +21,51 @@ using namespace std;
 int main()
 {
     GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        lli k;
-        cin>>k;
-
-        lli x=2;
-        lli ans=0;
-        while(k%x == 0)
+        lli n;
+        cin>>n;
+        lli a[n];
+        lli pos=0;
+        lli neg=0;
+        for(int i=0;i<n;i++)
         {
-            x*=2;
-            ans++;
+            cin>>a[i];
+            (a[i]<0)? neg++ : pos++;
         }
-        cout<<ans<<"\n";
+
+        for(int i=0;i<n;i++)
+        {
+            if(i < neg)
+            {
+                if(a[i] > 0)
+                    a[i] *= -1;
+            }
+            else
+            {
+                if(a[i] < 0)
+                    a[i] *= -1;
+            }
+        }
+
+        //array_printer(a,n);
+
+        for(int i=0;i<n-1;i++)
+        {
+            if(a[i+1] < a[i])
+            {
+                cout<<"NO\n";
+                goto l;
+            }
+        }
+
+        cout<<"YES\n";
+        l:
         t--;
     }
     return 0;
 }
-

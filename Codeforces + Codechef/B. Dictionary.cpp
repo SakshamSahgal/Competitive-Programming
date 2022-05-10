@@ -21,23 +21,34 @@ using namespace std;
 int main()
 {
     GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+
+    vector<string> z;
+    for(char i='a'; i<='z'; i++)
+    {
+        for(char j='a'; j<='z'; j++)
+        {
+            if(i != j)
+            {
+                string temp;
+                temp +=i;
+                temp +=j;
+                z.push_back(temp);
+            }
+        }
+    }
+    sort(z.begin(),z.end());
+
     int t;
     cin>>t;
     while(t)
     {
-        lli k;
-        cin>>k;
-
-        lli x=2;
-        lli ans=0;
-        while(k%x == 0)
-        {
-            x*=2;
-            ans++;
-        }
-        cout<<ans<<"\n";
+        string s;
+        cin>>s;
+        auto ptr = find(z.begin(),z.end(),s);
+        cout<<ptr-z.begin()+1<<"\n";
         t--;
     }
     return 0;
 }
-
