@@ -16,7 +16,22 @@ lli inf = 9e18;
 #define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
 
+int setBitNumber(int n)
+{
+    if (n == 0)
+        return 0;
 
+    int msb = 0;
+    n = n / 2;
+    while (n != 0)
+    {
+        n = n / 2;
+        msb++;
+    }
+
+    lli z = log2((1 << msb));
+    return z;
+}
 
 int main()
 {
@@ -27,37 +42,62 @@ int main()
     cin>>t;
     while(t)
     {
-        lli n;
-        cin>>n;
-        lli a[n];
-        vector<lli> o;
-        vector<lli> e;
-        for(int i=0;i<n;i++)
+        lli a,b,c;
+        cin>>a>>b>>c;
+        bool done=0;
+        for(int i=0;i<=30;i++)
         {
-            cin>>a[i];
-            if(a[i]%2 == 0)
-                e.push_back(a[i]);
+            lli set_a = (a>>i)%2;
+            lli set_b = (b>>i)%2;
+            lli set_c = (c>>i)%2;
+            lli noz = 0;
+
+            if(!set_a)
+                noz++;
+            if(!set_b)
+                noz++;
+            if(!set_c)
+                noz++;
+
+            if(noz == 3 || noz == 0)
+                done = 1;
             else
-                o.push_back(a[i]);
+            {
+                if(!done)
+                {
+                    if(noz == 2)
+                    {
+                        if(set_a)
+                            a += powl(2,i);
+                        if(set_b)
+                            b += powl(2,i);
+                        if(set_c)
+                            c += powl(2,i);
+                    }
+                    else
+                    {
+                        if(!set_a)
+                            a += powl(2,i);
+                        if(!set_b)
+                            b += powl(2,i);
+                        if(!set_c)
+                            c += powl(2,i);
+                    }
+                }
+                else
+                {
+                    cout<<"NO\n";
+                    goto l;
+                }
+            }
         }
 
-        if(e.size() == 0 || o.size() == 0)
-            cout<<0<<"\n";
-        else
-        {
-            lli to_even;
-            lli to_odd;
-            if(o.size()%2 == 0)
-                to_even = o.size()/2;
-            else
-                to_even = inf;
-
-            to_odd = e.size();
-
-            cout<<min(to_even,to_odd)<<"\n";
-        }
+    if(a == b && b == c)
+    cout<<"YES\n";
+    else
+    cout<<"NO\n";
+l:
         t--;
     }
     return 0;
 }
-

@@ -6,18 +6,22 @@
 #include<algorithm>
 #include<cmath>
 #include<climits>
-#define usi unsigned short int
-#define ui unsigned int
-#define ulli unsigned long long int
 #define lli long long int
 #define GO_FAST ios_base::sync_with_stdio(0);ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+// basic debugging macros
+lli __i__,__j__;
+lli inf = 9e18;
+#define line_printer(l) cout<<"\n"; for(__i__=0;__i__<l;__i__++){cout<<"-";}cout<<endl;
+#define array_printer(a,l) cout<<#a<<": ";for(__i__=0;__i__<l;__i__++){cout<<a[__i__]<<" ";}cout<<"\n";
+#define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
+
 
 class Disjoint_set
 {
 public:
     lli *parent;
-    lli sz; //no of vertex + 1
+    lli sz;
 
     Disjoint_set(lli sizze)
     {
@@ -84,21 +88,45 @@ public:
     }
 };
 
-
 int main()
 {
     //GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+
     lli n;
     cin>>n;
-    Disjoint_set d(10);
-    d.Display();
+    lli ans= inf;
+    vector<string> v(n);
+    for(int i=0; i<n; i++)
+        cin>>v[i];
 
-    for(lli i=0; i<n; i++)
+    for(int i=0; i<=9; i++)
     {
-        lli x,y;
-        cin>>x>>y;
-        d.Union(x,y);
-        d.Display();
+        map<lli,lli> done;
+        lli maxx = -inf;
+        for(int j=0; j<n; j++)
+        {
+            lli t=0;
+            for(int k=0; k<10; k++)
+            {
+                if( (v[j][k] - '0') == i )
+                {
+                    t = k;
+                    break;
+                }
+            }
+
+            while(done[t] != 0)
+                t += 10;
+            //cout<<"for "<<j<<" t = "<<t<<"\n";
+
+            done[t] = 1;
+            maxx = max(maxx,t);
+        }
+        ans = min(maxx,ans);
+        //cout<<"to make "<<i<<" time = "<<maxx<<"\n";
     }
+    cout<<ans<<"\n";
     return 0;
 }

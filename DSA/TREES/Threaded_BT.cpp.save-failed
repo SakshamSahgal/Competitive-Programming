@@ -1,0 +1,57 @@
+#include<iostream>
+using namespace std;
+
+struct Node
+{
+  struct Node *lc, *rc;
+  int info;
+  bool lthread; //0-> left threading to ansistor, 1-> no thread
+  bool  rthread; //0-> right threading to ansistor, 1-> no thread
+};
+
+class Threaded_BT
+{
+    Node *root=NULL,*temp=NULL,*dummy_node=NULL;
+
+    Node* Create(int x)
+    {
+        temp = new Node;
+        temp->info = x;
+        temp->lc = temp->rc = NULL;
+        temp->lthread = 0;
+        temp->rthread = 0;
+    }
+
+    void Insert(int x,Node *Temp_root)
+    {
+        if(root == NULL)
+        {
+            root = Create(x);
+            dummy_node = new Node;
+            dummy_node->rc = dummy_node;
+            dummy_node->rthread = 1;
+            dummy_node->lthread = 1;
+            dummy_node->lc = root;
+            root->lc = dummy_node;
+            root->rc = dummy_node;
+        }
+        else
+        {
+            temp = Create(x);
+            if(x < Temp_root->info) //goto lc
+            {
+
+                temp->lc = Temp_root->lc;
+                temp->rc = Temp_root;
+                Temp_root->lc = temp;
+            }
+
+
+        }
+    }
+};
+int main()
+{
+
+    return 0;
+}

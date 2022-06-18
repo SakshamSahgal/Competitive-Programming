@@ -6,18 +6,25 @@
 #include<algorithm>
 #include<cmath>
 #include<climits>
-#define usi unsigned short int
-#define ui unsigned int
-#define ulli unsigned long long int
 #define lli long long int
 #define GO_FAST ios_base::sync_with_stdio(0);ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+// basic debugging macros
+lli __i__,__j__;
+lli inf = 9e18;
+#define line_printer(l) cout<<"\n"; for(__i__=0;__i__<l;__i__++){cout<<"-";}cout<<endl;
+#define array_printer(a,l) cout<<#a<<": ";for(__i__=0;__i__<l;__i__++){cout<<a[__i__]<<" ";}cout<<"\n";
+#define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
+
+
+
+bool not_taking = 0;
 
 class Disjoint_set
 {
 public:
     lli *parent;
-    lli sz; //no of vertex + 1
+    lli sz;
 
     Disjoint_set(lli sizze)
     {
@@ -44,7 +51,7 @@ public:
     {
         lli pa = Get_parent(a);
         lli pb = Get_parent(b);
-        cout<<"Parent of a = "<<pa<<" Parent of b = "<<pb<<"\n";
+        //cout<<"Parent of a = "<<pa<<" Parent of b = "<<pb<<"\n";
         if(pa != pb)
         {
             lli size_a = abs(parent[pa]);
@@ -61,7 +68,7 @@ public:
             }
         }
         else
-            cout<<"Cycle Detected\n";
+            not_taking = 1;
     }
 
     void Display()
@@ -84,21 +91,38 @@ public:
     }
 };
 
-
 int main()
 {
     //GO_FAST
-    lli n;
-    cin>>n;
-    Disjoint_set d(10);
-    d.Display();
-
-    for(lli i=0; i<n; i++)
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+    lli n,m;
+    cin>>n>>m;
+    vector<pair<pair<lli,lli>,lli>> ed; //a,b,w
+    vector<pair<lli,lli>> edges; //wt,index
+    for(int i=0;i<m;i++)
     {
-        lli x,y;
-        cin>>x>>y;
-        d.Union(x,y);
-        d.Display();
+        lli a,b,w;
+        cin>>a>>b>>w;
+        ed.push_back({{a,b},w});
+        edges.push_back({w,i});
     }
+    sort(edges.begin(),edges.end());
+
+
+    Disjoint_set d(200001);
+    vector<lli> ans;
+    for(int i=0;i<edges.size();i++)
+    {
+        not_taking = 0;
+        int id = edges[i].second;
+        d.Union(ed[id].first.first,ed[id].first.second);
+        if(!not_taking)
+            ans.push_back(id);
+    }
+
+    for(auto i:ans)
+        cout<<i+1<<" ";
+
     return 0;
 }

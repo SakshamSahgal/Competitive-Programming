@@ -36,7 +36,7 @@ int main()
     x.insert(3);
     x.insert(1);
     x.insert(3);
-
+    x.erase(x.find(1));
     for(int i=0;i<x.size();i++)
         cout<<(*x.find_by_order(i))<<" "; //you can access the ith index of an ordered-set in log(n) by using x.find_by_order(i);
 
