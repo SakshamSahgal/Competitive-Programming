@@ -16,31 +16,7 @@ lli inf = 9e18;
 #define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
 
-vector<lli> consequtive_freq(string s){
-    vector<lli> z;
-    int i=0;
-    while(i < s.length())
-    {
-        int j=i+1;
-        int c=1;
-        while(j < s.length() && s[j] == s[i])
-        {
-            j++;
-            c++;
-        }
-        z.push_back(c);
-        i = j;
-    }
-    return z;
-}
 
-void vector_printer( vector<lli> v)
-{
-    cout<<"\n------------------------\n";
-    for(int i=0; i<v.size(); i++)
-        cout<<v[i]<<" ";
-    cout<<"\n------------------------\n";
-}
 
 int main()
 {
@@ -55,18 +31,35 @@ int main()
         cin>>n;
         string s;
         cin>>s;
-        vector<lli> cf = consequtive_freq(s);
-        vector<lli> odd;
-        for(int i=0;i<cf.size();i++)
-        {
-            if(cf[i]%2)
-                odd.push_back(i);
-        }
-        lli ans=0;
-        for(int i=0;i<odd.size();i+=2)
-            ans += odd[i+1] - odd[i];
-        cout<<ans<<"\n";
+        vector<lli> v;
+        for(int i=0;i<n;i++)
+            v.push_back(s[i] - '0');
 
+        if(s[0] != '9')
+        {
+            for(int i=0;i<n;i++)
+                cout<<(9-v[i]);
+        }
+        else
+        {
+            vector<lli> ans(n);
+            for(int i=n-1;i>0;i--)
+            {
+                if(v[i] == 0)
+                    ans[i] = 1;
+                else if(v[i] == 1)
+                    ans[i] = 0;
+                else
+                {
+                    ans[i] = 11 - v[i];
+                    v[i-1]++;
+                }
+            }
+            ans[0] = 11 - v[0];
+            for(auto i:ans)
+                cout<<i;
+        }
+        cout<<"\n";
         t--;
     }
     return 0;

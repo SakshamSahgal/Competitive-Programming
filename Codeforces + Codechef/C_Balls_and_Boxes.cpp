@@ -16,6 +16,13 @@ lli inf = 9e18;
 #define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
 
+lli dist(lli f, lli t,lli n)
+{
+    if (f < t)
+        return (t - f);
+    else
+        return(n + t - f);
+}
 
 class Segiment_Tree
 {
@@ -138,51 +145,87 @@ public:
     }
 };
 
-
 int main()
 {
-    /*
-
-    1
-    6
-    1 3 2 0 4 5
-
-    */
-
-    //GO_FAST
-    int t;
-    cin>>t;
-    while(t)
+    // GO_FAST
+    // freopen("input.txt", "r", stdin);
+    // freopen("myout.txt", "w", stdout);
+    lli n, x;
+    cin >> n >> x;
+    x--;
+    lli a[n];
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    Segiment_Tree st(n);
+    st.Build_min(0, 0, n - 1, a);
+    //st.print_segiment_tree(n);
+    lli to_sub;
+    for (int i = x - 1; i >= 0; i--)
     {
-        lli n;
-        cin>>n;
-        lli a[n];
-        for(int i=0; i<n; i++)
-            cin>>a[i];
+        //     lli xc = (a[i] + 1);
+        //     li hona = dist(i, x, n) + (a[i]) * n;
+        //     cout << " abh - " << a[i] << " hona = " << dist(i, x, n) << " xc = " << xc << "\n";
 
-        Segiment_Tree st(n);
-        st.Build_min(0,0,n-1,a);
-        st.print_segiment_tree(n);
+        lli mini_in_btw = st.Querry_min(0, 0, n - 1, i + 1, x);
+        lli mini_else;
 
-        line_printer(20);
-        cout<<"\nMin in range index from 1 to 4 is = "<<st.Querry_min(0,0,n-1,1,4)<<"\n";
-        cout<<"\nMin in range index from 0 to 2 is = "<<st.Querry_min(0,0,n-1,0,2)<<"\n";
-        cout<<"\nMin in range index from 2 to 1 is = "<<st.Querry_min(0,0,n-1,2,1)<<"\n";
+        if (x == n - 1)
+            mini_else = st.Querry_min(0, 0, n - 1, 0, i);
+        else
+            mini_else = min(st.Querry_min(0, 0, n - 1, 0, i), st.Querry_min(0, 0, n - 1, min(n - 1, x + 1), n - 1));
 
-        cout<<"Updating Point min (changing third index to 4)\n";
-        st.Point_Update_min(0,0,n-1,3,4); //changing third index to 4
-        a[3] = 4;
-        st.print_segiment_tree(n);
-        cout<<"\nMin in range index from 1 to 4 is = "<<st.Querry_min(0,0,n-1,1,4)<<"\n";
-        line_printer(20);
-        Segiment_Tree st2(n);
-        st2.Build_max(0,0,n-1,a);
-        st2.print_segiment_tree(n);
-        cout<<"\nMax in range index from 3 to 3 is = "<<st2.Querry_max(0,0,n-1,3,3)<<"\n";
-        cout<<"\nMax in range index from 0 to 2 is = "<<st2.Querry_max(0,0,n-1,0,2)<<"\n";
-        line_printer(20);
-        t--;
+        lli abhi = a[i];
+        if (mini_in_btw >= a[i] + 1 && mini_else >= a[i])
+        {
+            to_sub = a[i] + 1;
+            for (int j = i + 1; j <= x; j++)
+                a[j] -= to_sub;
+            to_sub--;
+            for (int j = 0; j < i; j++)
+                a[j] -= to_sub;
+            for (int j = x + 1; j < n; j++)
+                a[j] -= to_sub;
+            //cout<<"Found at "<<i<<"\n";
+            a[i] = dist(i,x,n) + abhi*n;
+            goto l;
+        }
     }
+
+    for(lli i=n-1;i>x;i--)
+    {
+        lli mini_in_btw = st.Querry_min(0, 0, n - 1, x+1, i);
+        lli mini_else;
+        lli abhi = a[i];
+
+        if(i == n-1)
+            mini_else = st.Querry_min(0, 0, n - 1,0,x);
+        else
+            mini_else = min(st.Querry_min(0, 0, n - 1,0,x),st.Querry_min(0, 0, n - 1,min(n-1,i+1),n-1));
+
+        if(mini_else >= a[i] + 1 && mini_in_btw >= a[i])
+        {
+            to_sub = a[i];
+            for (int j = x+1; j <= i; j++)
+                a[j] -= to_sub;
+            to_sub++;
+            for (int j = 0; j <= x; j++)
+                a[j] -= to_sub;
+            for (int j = i + 1; j < n; j++)
+                a[j] -= to_sub;
+            //cout<<"Found at "<<i<<"\n";
+            a[i] = dist(i,x,n) + abhi*n;
+            goto l;
+        } 
+    }
+
+    to_sub = a[x];
+    for(int i=0;i<n;i++)
+     a[i] -= to_sub; 
+    
+    a[x] = n*to_sub;
+    l:
+    
+    for(int i=0;i<n;i++)
+        cout<<a[i]<<" ";
     return 0;
 }
-

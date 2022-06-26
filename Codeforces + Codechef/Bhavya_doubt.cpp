@@ -18,8 +18,7 @@ using namespace std;
 
 
 
-int main()
-{
+int main(){
     //GO_FAST
     string s;
     cin>>s;

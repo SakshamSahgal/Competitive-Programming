@@ -34,21 +34,29 @@ set<lli> factor_it(lli n)
     return factors;
 }
 
+lli sum(set<lli> f)
+{
+    lli s=0;
+    for(auto i:f)
+        s += i;
+    return s;
+}
 int main()
 {
 //ios_base::sync_with_stdio(false);
 //cin.tie(NULL);
 //cout.tie(NULL);
     set<lli> f;
-
-    for(int i=1;i<=989;i++)
+    for(int i=1;;i++)
     {
-    cout<<"i = "<<i<<" ";
+        cout<<"i = "<<i<<" ";
     f = factor_it(i);
-    set_printer(f);
+    lli s = sum(f);
+    cout<<"s = "<<s<<"\n";
+    if(s >= 1000000)
     }
-
-
+    
+    
     return 0;
 }
 
