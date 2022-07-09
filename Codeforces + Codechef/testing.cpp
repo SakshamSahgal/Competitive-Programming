@@ -1,43 +1,51 @@
-#include<iostream>
-#include<cstring>
-#include<vector>
-#include<set>
-#include<map>
-#include<algorithm>
-#include<cmath>
-#include<climits>
-#define lli long long int
-#define GO_FAST ios_base::sync_with_stdio(0);ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-// basic debugging macros
-lli __i__,__j__;
-lli inf = 9e18;
-#define line_printer(l) cout<<"\n"; for(__i__=0;__i__<l;__i__++){cout<<"-";}cout<<endl;
-#define array_printer(a,l) cout<<#a<<": ";for(__i__=0;__i__<l;__i__++){cout<<a[__i__]<<" ";}cout<<"\n";
-#define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
+// C++ program to print Postorder
+// traversal from given Inorder
+// and Preorder traversals.
+#include <iostream>
 using namespace std;
 
+int preIndex = 0;
 
-
-int main()
+int search(int arr[], int startIn,int endIn, int data)
 {
-    GO_FAST
-    //freopen("input.txt", "r", stdin);
-    //freopen("myout.txt", "w", stdout);
-    int t;
-    cin>>t;
-    while(t)
-    {
-        lli a,b;
-        cin>>a>>b;
-        if(b == 0)
-            cout<<a+1<<"\n";
-        else if(a == 0)
-            cout<<a+1<<"\n";
-        else
-        cout<<a + 2*b + 1<<"\n";
+	int i = 0;
+	for (i = startIn; i < endIn; i++)
+	{
+		if (arr[i] == data)
+		{
+			return i;
+		}
+	}
+	return i;
+}
+void printPost(int arr[], int pre[],int inStrt, int inEnd)
+{
+	if (inStrt > inEnd)
+	{
+		return;
+	}
 
-        t--;
-    }
-    return 0;
+	// Find index of next item in preorder
+	// traversal in inorder.
+	int inIndex = search(arr, inStrt, inEnd,pre[preIndex++]);
+
+	// traverse left tree
+	printPost(arr, pre, inStrt, inIndex - 1);
+
+	// traverse right tree
+	printPost(arr, pre, inIndex + 1, inEnd);
+
+	// print root node at the end of traversal
+	cout << arr[inIndex] << " ";
 }
 
+// Driver code
+int main()
+{
+	int arr[] = {10 ,50 ,60 ,90 ,93 ,95 ,99 ,100, 125 ,130, 135 ,150 ,180, 200 ,250};
+	int pre[] = {100, 90, 50, 10, 60, 95, 93, 99, 150, 130, 125, 135, 200, 180, 250};
+	int len = sizeof(arr)/sizeof(arr[0]);
+	printPost(arr, pre, 0, len - 1);
+}
+
+// This code is contributed by SHUBHAMSINGH10

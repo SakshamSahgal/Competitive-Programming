@@ -6,12 +6,17 @@
 #include<algorithm>
 #include<cmath>
 #include<climits>
-#define usi unsigned short int
-#define ui unsigned int
-#define ulli unsigned long long int
 #define lli long long int
 #define GO_FAST ios_base::sync_with_stdio(0);ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+// basic debugging macros
+lli __i__,__j__;
+lli inf = 9e18;
+#define line_printer(l) cout<<"\n"; for(__i__=0;__i__<l;__i__++){cout<<"-";}cout<<endl;
+#define array_printer(a,l) cout<<#a<<": ";for(__i__=0;__i__<l;__i__++){cout<<a[__i__]<<" ";}cout<<"\n";
+#define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
+
+//remember to use endl instead of \n for interactive problems.
 
 class Disjoint_set
 {
@@ -40,11 +45,11 @@ public:
         }
     }
 
-    void Union(lli a,lli b)
+    bool Union(lli a,lli b)
     {
         lli pa = Get_parent(a);
         lli pb = Get_parent(b);
-        cout<<"Parent of a = "<<pa<<" Parent of b = "<<pb<<"\n";
+        //cout<<"Parent of a = "<<pa<<" Parent of b = "<<pb<<"\n";
         if(pa != pb)
         {
             lli size_a = abs(parent[pa]);
@@ -59,9 +64,10 @@ public:
                 parent[pb] += parent[pa];
                 parent[pa] = pb;
             }
+            return 1;
         }
         else
-            cout<<"Cycle Detected\n";
+            return 0;
     }
 
     void Display()
@@ -84,21 +90,34 @@ public:
     }
 };
 
-
 int main()
 {
     //GO_FAST
-    lli n;
-    cin>>n;
-    Disjoint_set d(10);
-    d.Display();
-
-    for(lli i=0; i<n; i++)
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+    lli n,m;
+    cin>>n>>m;
+    lli c=0;
+    Disjoint_set d(n+1);
+    for(int i=0;i<m;i++)
     {
-        lli x,y;
-        cin>>x>>y;
-        d.Union(x,y);
-        d.Display();
-    }
+        lli a,b;
+        cin>>a>>b;
+        if(!d.Union(a,b))
+          c++;
+
+        vector<lli> v;
+        for(int i=1;i<=n;i++)
+        {
+            if(d.parent[i] < 0)
+             v.push_back(abs(d.parent[i]));
+        }
+
+        sort(v.begin(),v.end(),greater<lli>());
+        lli ans=0;
+        for(int i=0;i<=c;i++)
+            ans += v[i];
+        cout<<ans-1<<"\n";
+    }   
     return 0;
 }
