@@ -38,6 +38,7 @@ int main()
 1 1 3 3 3 10 1 3 3 7 7 8
     */
 
+
     lli n;
     cin>>n;
     int a[n];

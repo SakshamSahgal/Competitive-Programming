@@ -17,7 +17,7 @@ class Disjoint_set
 {
 public:
     lli *parent;
-    lli sz; //no of vertex + 1 (if vertices start from 0)
+    lli sz; //no of vertex + 1 (if vertices start from 1)
 
     Disjoint_set(lli sizze)
     {
@@ -88,9 +88,10 @@ public:
 int main()
 {
     //GO_FAST
+    cout<<"enter no of vertexes = ";
     lli n;
     cin>>n;
-    Disjoint_set d(10);
+    Disjoint_set d(n);
     d.Display();
 
     for(lli i=0; i<n; i++)

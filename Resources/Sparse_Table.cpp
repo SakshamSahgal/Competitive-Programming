@@ -69,7 +69,6 @@ int main()
 
     while(t)
     {
-
         int l,r;
         cin>>l>>r;
         int length_of_segiment = r-l+1;

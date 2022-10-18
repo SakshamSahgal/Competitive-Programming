@@ -1,117 +1,46 @@
-#include<iostream>
-#include<cstring>
+#include<bits/stdc++.h>
+#define lli long long int
+#define ld long double
+#define GO_FAST ios_base::sync_with_stdio(0);ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+// basic debugging macros
+lli __i__,__j__;
+lli inf = 9e18;
+#define line_printer(l) cout<<"\n"; for(__i__=0;__i__<l;__i__++){cout<<"-";}cout<<endl;
+#define array_printer(a,l) cout<<#a<<": ";for(__i__=0;__i__<l;__i__++){cout<<a[__i__]<<" ";}cout<<"\n";
+#define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
-int digit_sum(char s[3000],int n)
-{
-int sum=0;
-for(unsigned int i=0;i<n;i++)
-        if(s[i] != '$')
-            sum += (s[i]-48);
-    return sum;
-}
-
-void converter(char s[3000],int n)
-{
-char d[3000];
-    unsigned int j=0;
-    for(unsigned int i=0,j=0;i<n;i++)
-        {
-        if(s[i]!='$')
-                {
-                d[j] = s[i];
-                j++;
-                cout<<"d[j] = "<<d[j]<<"\n";
-                }
-
-        }
-
-bool check = 0;
-for(unsigned int i=0;i<j;i++)
-    {
-        if(check == 0)
-            if((d[i]-48) != 0)
-                check = 1;
-
-         if(check == 1)
-                cout<<d[i];
-    }
-    cout<<"\n";
-}
+typedef pair<lli,lli> pll;
 
 
 int main()
 {
-//ios_base::sync_with_stdio(false);
-//cin.tie(NULL);
-//cout.tie(NULL);
-unsigned short int t;
-cin>>t;
-while(t--)
-        {
-        unsigned short int n;
+    GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+    int t;
+    cin>>t;
+    while(t)
+    {
+        lli n;
         cin>>n;
-        char s[3000];
+        string s;
         cin>>s;
-        int i;
-
-        if(n==1)
-            {
-            cout<<"-1\n";
-            goto y;
-            }
-        if(digit_sum(s,n)%2 == 0 && (s[n-1]-48)%2 !=0)
+        lli noo=0;
+        string ans;
+        for(int i=0;i<n;i++)
         {
-          cout<<s;
-          goto y;
+            if( (s[i] - '0')%2 )
+            {
+                noo++;
+                ans += s[i];
+            }
         }
-        for(i=n-1;i>=1;i--)
-            {
-            if((s[i]-48)%2 == 0)
-                s[i] = '$';
-            else
-                break;
-            }
-        if(i==0)
-            {
-            cout<<"-1\n";
-            goto y;
-            }
+        if(noo >= 2)
+            cout<<ans[0]<<ans[1]<<"\n";
         else
-        {
-            //cout<<"\n"<<s<<"\n";
-            //cout<<"digit sum = "<<digit_sum(s,n)<<"\n";
-
-             if(digit_sum(s,n)%2 != 0)
-            {
-                for(i=1;i<10;i+=2)
-                {
-                for(int j=0;j<n-1;j++)
-                    {
-                    if(s[j] != '$' && (s[j]-48) == i)
-                        {
-                        s[j] = '$';
-                        //cout<<"\n"<<"j = "<<j<<"\n";
-                        goto x;
-                        }
-                    }
-                }
-            }
-                x:
-                   // cout<<"aaiya";
-                    //cout<<"\n"<<s<<"\n";
-            if(digit_sum(s,n)%2 == 0)
-                        {
-                        converter(s,n);
-                        //cout<<"digit sum = "<<digit_sum(s,n)<<"\n";
-                        }
-
-        }
-
-        y:
-            n=n;
-
-        }
-
-
-return 0;
+            cout<<"-1\n";
+        t--;
+    }
+    return 0;
 }
+
