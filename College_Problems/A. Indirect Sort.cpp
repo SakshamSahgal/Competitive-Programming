@@ -14,14 +14,47 @@ typedef pair<lli,lli> pll;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
+        lli n;
+        cin>>n;
+        lli a[n];
+        lli mini = inf;
+        lli ma[n];
+        for(int i=0;i<n;i++)
+        {
+            cin>>a[i];
+            mini = min(a[i],mini);
+            ma[i] = min(ma[i],mini);
+        }
 
+        for(int i=0;i<n;i++)
+        {
+            if(a[i] != i+1)
+            {
+                if(i == 0)
+                {
+                    cout<<"No\n";
+                    goto l;
+                }
+                else
+                {
+                    if(i > 1 && ma[i-2] > a[i])
+                    {
+                        cout<<"No\n";
+                        goto l;
+                    }
+                }
+            }
+
+        }
+        cout<<"Yes\n";
+        l:
         t--;
     }
     return 0;

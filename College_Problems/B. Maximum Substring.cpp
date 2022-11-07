@@ -12,16 +12,52 @@ using namespace std;
 typedef pair<lli,lli> pll;
 
 
+
 int main()
 {
-    //GO_FAST
+    GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
+        lli n;
+        cin>>n;
+        string s;
+        cin>>s;
 
+        lli noz=0;
+        lli noo=0;
+        if(s[0] == '0')
+            noz++;
+        else
+            noo++;
+        lli mx_f = 1;
+        char lst = s[0];
+        lli f=1;
+
+        for(int i=1;i<n;i++)
+        {
+            if(s[i] == '0')
+                noz++;
+            else
+                noo++;
+
+            if(s[i] == lst)
+                f++;
+            else
+            {
+                f = 1;
+                lst = s[i];
+            }
+
+            mx_f = max(mx_f,f);
+        }
+
+        mx_f *= mx_f;
+        lli ans = max(mx_f,(noz*noo));
+        cout<<ans<<"\n";
         t--;
     }
     return 0;
