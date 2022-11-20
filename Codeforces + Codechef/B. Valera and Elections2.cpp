@@ -11,28 +11,32 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-vector<lli> euler_tour;
-
+vector<lli> cur_prob;
+set<lli> ans;
 void dfs(lli v,vector<bool> &vis,vector<vector<pll>> &g)
 {
     vis[v] = 1;
-    euler_tour.push_back(v);
-    for(auto neig:g[v])
+    for(auto nei:g[v])
     {
-        if(!vis[neig.first])
+        if( !vis[nei.first] )
         {
-            dfs(neig.first,vis,g);
-            euler_tour.push_back(v);
+            if(nei.second == 2)
+            {
+                cur_prob.push_back(nei.first);
+                ans.insert(nei.first);
+                if(cur_prob.size() >= 2)
+                {
+                    auto ptr = ans.find(cur_prob[cur_prob.size()-2]);
+                    if(ptr != ans.end())
+                        ans.erase(ptr);
+
+                }
+            }
+            dfs(nei.first,vis,g);
+            if(cur_prob.size() >= 1 && cur_prob[cur_prob.size()-1] == nei.first)
+                cur_prob.pop_back();
         }
     }
-}
-
-void vector_printer( vector<lli> v)
-{
-    cout<<"\n------------------------\n";
-    for(int i=0; i<v.size(); i++)
-        cout<<v[i]<<" ";
-    cout<<"\n------------------------\n";
 }
 
 int main()
@@ -51,10 +55,12 @@ int main()
         g[x].push_back({y,t});
         g[y].push_back({x,t});
     }
+
     dfs(1,vis,g);
-    vector_printer(euler_tour);
-
-
+    cout<<ans.size()<<"\n";
+    for(auto i:ans)
+        cout<<i<<" ";
+    cout<<"\n";
 
     return 0;
 }

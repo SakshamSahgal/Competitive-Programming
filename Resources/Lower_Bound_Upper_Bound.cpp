@@ -20,11 +20,15 @@ a.push_back(10);
 a.push_back(12);
 a.push_back(13);
 
-auto st = lower_bound(a.begin(),a.end(),14); //left se chalne pe sabse pehla uss element ka index jo >= argument ho
-auto ed = upper_bound(a.begin(),a.end(),13); //right se chalne pe sabse pehla woh index + 1 jo <= argument ho
-cout<<st-a.begin()<<"\n";
-cout<<(st == a.end())<<"\n";
-cout<<ed-a.begin()<<"\n";
-return 0;
+auto st = lower_bound(a.begin(),a.end(),5); //left se chalne pe sabse pehla uss element ka index jo >= argument ho
+auto ed = upper_bound(a.begin(),a.end(),4); //right se chalne pe sabse pehla woh index + 1 jo <= argument ho
+
+for(auto i:a)
+    cout<<i<<" ";
+
+    cout<<"\n";
+    cout<<"st = "<<*st<<"\n";
+    cout<<"ed = "<<*ed<<"\n";
+    return 0;
 }
 

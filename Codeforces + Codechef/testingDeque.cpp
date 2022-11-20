@@ -14,26 +14,19 @@ typedef pair<lli,lli> pll;
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
+    deque<pll> z;
+    z.push_back({1,2});
+    z.push_back({3,2});
+    z.push_back({4,2});
+    z.push_back({5,2});
+    z.push_back({6,2});
+    z.back().second = 3;
 
-    lli n,m;
-    cin>>n>>m;
-    lli a[m];
-    for(int i=0; i<m; i++)
-        cin>>a[i];
-    lli ans=inf;
-    sort(a,a+m);
-    for(int i=0; i<m; i++)
-    {
-        lli j = i+n-1;
-        if(j < m)
-            ans = min(ans,a[j] - a[i]);
-        else
-            break;
-    }
-    cout<<ans<<"\n";
+    for(auto i:z)
+        cout<<i.first<<" "<<i.second<<"\n";
     return 0;
 }
 

@@ -23,28 +23,42 @@ int main()
     {
         lli n;
         cin>>n;
-        lli a[(2*n)];
-        map<lli,lli> f;
-        for(int i=0; i<(2*n); i++)
+        lli a[n];
+        vector<lli> z;
+        lli ans=0;
+        for(int i=0; i<n; i++)
         {
             cin>>a[i];
-            f[a[i]]++;
+            if(a[i] == 0)
+                z.push_back(i);
         }
 
-        bool pass=1;
-        for(auto i:f)
+        lli ss=0;
+
+        for(int i = 0; i < ((z.size()) ? z[0] : n ) ; i++)
         {
-            if(i.second > 2)
-            {
-                pass = 0;
-                break;
-            }
+            ss += a[i];
+            if(ss == 0)
+                ans++;
         }
 
-        if(pass)
-            cout<<"YES\n";
-        else
-            cout<<"NO\n";
+        for(int i=0; i<z.size(); i++)
+        {
+            lli st = z[i];
+            lli ed = (i == z.size() - 1) ? n - 1 : z[i+1] - 1;
+            map<lli,lli> f;
+            lli mx_f = -inf;
+            lli s=0;
+            for(int j=st; j<=ed; j++)
+            {
+                s += a[j];
+                f[s]++;
+                mx_f = max(f[s],mx_f);
+            }
+            ans += mx_f;
+        }
+
+        cout<<ans<<"\n";
         t--;
     }
     return 0;

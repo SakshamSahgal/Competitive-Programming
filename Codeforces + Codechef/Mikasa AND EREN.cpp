@@ -14,26 +14,30 @@ typedef pair<lli,lli> pll;
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-
-    lli n,m;
-    cin>>n>>m;
-    lli a[m];
-    for(int i=0; i<m; i++)
-        cin>>a[i];
-    lli ans=inf;
-    sort(a,a+m);
-    for(int i=0; i<m; i++)
+    int t;
+    cin>>t;
+    lli m=0;
+    lli z=0;
+    while(t)
     {
-        lli j = i+n-1;
-        if(j < m)
-            ans = min(ans,a[j] - a[i]);
+        lli x,y;
+        cin>>x>>y;
+        if(x > y)
+            m++;
         else
-            break;
+            z++;
+        t--;
     }
-    cout<<ans<<"\n";
+
+    if(m == z)
+        cout<<"Friendship is magic!\n";
+    else if(m > z)
+        cout<<"Mikasa\n";
+    else
+        cout<<"Eren\n";
+
     return 0;
 }
-

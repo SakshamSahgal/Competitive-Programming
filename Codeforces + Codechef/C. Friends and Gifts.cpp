@@ -17,35 +17,62 @@ int main()
     GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    int t;
-    cin>>t;
-    while(t)
-    {
-        lli n;
-        cin>>n;
-        lli a[(2*n)];
-        map<lli,lli> f;
-        for(int i=0; i<(2*n); i++)
-        {
-            cin>>a[i];
-            f[a[i]]++;
-        }
+    lli n;
+    cin>>n;
+    lli a[n];
+    set<lli> z;
+    for(lli i=1; i<=n; i++)
+        z.insert(i);
 
-        bool pass=1;
-        for(auto i:f)
+    for(lli i=0; i<n; i++)
+    {
+        cin>>a[i];
+        if(a[i] != 0)
+            z.erase(z.find(a[i]));
+    }
+
+    deque<lli> zz;
+
+    for(auto i:z)
+        zz.push_back(i);
+
+    lli fz=-1;
+
+    for(int i=0;i<n;i++)
+    {
+        if(a[i] == 0)
         {
-            if(i.second > 2)
+            fz = i;
+            break;
+        }
+    }
+
+    for(int i=0; i<n; i++)
+    {
+        if(a[i] == 0)
+        {
+            if(i+1 == zz.front())
             {
-                pass = 0;
-                break;
+                a[i] = zz.back();
+                zz.pop_back();
+            }
+            else
+            {
+                a[i] = zz.front();
+                zz.pop_front();
             }
         }
 
-        if(pass)
-            cout<<"YES\n";
-        else
-            cout<<"NO\n";
-        t--;
     }
+
+    for(int i=0;i<n;i++)
+    {
+        if(a[i] == i+1)
+            swap(a[i],a[fz]);
+    }
+
+    for(auto i:a)
+        cout<<i<<" ";
+
     return 0;
 }

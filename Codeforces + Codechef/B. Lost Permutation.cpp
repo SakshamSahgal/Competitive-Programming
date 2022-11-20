@@ -21,27 +21,52 @@ int main()
     cin>>t;
     while(t)
     {
-        lli n;
-        cin>>n;
-        lli a[(2*n)];
-        map<lli,lli> f;
-        for(int i=0; i<(2*n); i++)
+        lli m,fs;
+        cin>>m>>fs;
+        lli a[m];
+        set<lli> have;
+        for(int i=0; i<m; i++)
         {
             cin>>a[i];
-            f[a[i]]++;
+            have.insert(a[i]);
         }
 
-        bool pass=1;
-        for(auto i:f)
+        bool found=0;
+        for(lli i=1; i<=1000; i++)
         {
-            if(i.second > 2)
+            if(!have.count(i))
             {
-                pass = 0;
+                fs -= i;
+                have.insert(i);
+            }
+
+            if(fs == 0)
+            {
+                found = 1;
                 break;
+            }
+            else if(fs < 0)
+                break;
+        }
+
+        if(found)
+        {
+            vector<lli> z;
+            for(auto i:have)
+                z.push_back(i);
+
+            for(int i=0; i<z.size(); i++)
+            {
+                if(z[i] != i+1)
+                {
+                    found = 0;
+                    break;
+                }
             }
         }
 
-        if(pass)
+
+        if(found)
             cout<<"YES\n";
         else
             cout<<"NO\n";

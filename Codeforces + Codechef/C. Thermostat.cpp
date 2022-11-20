@@ -11,51 +11,45 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-vector<lli> euler_tour;
-
-void dfs(lli v,vector<bool> &vis,vector<vector<pll>> &g)
-{
-    vis[v] = 1;
-    euler_tour.push_back(v);
-    for(auto neig:g[v])
-    {
-        if(!vis[neig.first])
-        {
-            dfs(neig.first,vis,g);
-            euler_tour.push_back(v);
-        }
-    }
-}
-
-void vector_printer( vector<lli> v)
-{
-    cout<<"\n------------------------\n";
-    for(int i=0; i<v.size(); i++)
-        cout<<v[i]<<" ";
-    cout<<"\n------------------------\n";
-}
 
 int main()
 {
     GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    lli n;
-    cin>>n;
-    vector<vector<pll>> g(n+1);
-    vector<bool> vis(n+1,0);
-    for(int i=0; i<n-1; i++)
+    int t;
+    cin>>t;
+    while(t)
     {
-        lli x,y,t;
-        cin>>x>>y>>t;
-        g[x].push_back({y,t});
-        g[y].push_back({x,t});
+        lli l,r,x;
+        cin>>l>>r>>x;
+        lli aa,bb;
+        cin>>aa>>bb;
+        lli a = min(aa,bb);
+        lli b = max(aa,bb);
+
+        lli ans=0;
+        if(a == b)
+            ans = 0;
+        else if(abs(b-a) >= x)
+            ans = 1;
+        else
+        {
+            lli rig = b + x;
+            lli left = a - x;
+            if( (rig >= l && rig <= r) || (left >= l && left <= r))
+                ans = 2;
+            else
+            {
+                if( abs(r-a) >= x && abs(b-l) >= x)
+                    ans = 3;
+                else
+                    ans = -1;
+            }
+        }
+        cout<<ans<<"\n";
+        t--;
     }
-    dfs(1,vis,g);
-    vector_printer(euler_tour);
-
-
-
     return 0;
 }
 

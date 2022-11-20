@@ -11,28 +11,15 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-vector<lli> euler_tour;
-
-void dfs(lli v,vector<bool> &vis,vector<vector<pll>> &g)
+lli sosq(lli n)
 {
-    vis[v] = 1;
-    euler_tour.push_back(v);
-    for(auto neig:g[v])
+    lli no=0;
+    while(n != 0)
     {
-        if(!vis[neig.first])
-        {
-            dfs(neig.first,vis,g);
-            euler_tour.push_back(v);
-        }
+        no += (n%10)*(n%10);
+        n /= 10;
     }
-}
-
-void vector_printer( vector<lli> v)
-{
-    cout<<"\n------------------------\n";
-    for(int i=0; i<v.size(); i++)
-        cout<<v[i]<<" ";
-    cout<<"\n------------------------\n";
+    return no;
 }
 
 int main()
@@ -42,19 +29,30 @@ int main()
     //freopen("myout.txt", "w", stdout);
     lli n;
     cin>>n;
-    vector<vector<pll>> g(n+1);
-    vector<bool> vis(n+1,0);
-    for(int i=0; i<n-1; i++)
+    set<lli> z;
+    z.insert(4);
+    z.insert(16);
+    z.insert(37);
+    z.insert(58);
+    z.insert(89);
+    z.insert(145);
+    z.insert(42);
+    z.insert(20);
+
+    while(1)
     {
-        lli x,y,t;
-        cin>>x>>y>>t;
-        g[x].push_back({y,t});
-        g[y].push_back({x,t});
+        n = sosq(n);
+        if(z.count(n))
+        {
+            cout<<"false\n";
+            break;
+        }
+        else if(n == 1)
+        {
+            cout<<"true\n";
+            break;
+        }
     }
-    dfs(1,vis,g);
-    vector_printer(euler_tour);
-
-
 
     return 0;
 }

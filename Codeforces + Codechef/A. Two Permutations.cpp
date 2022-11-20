@@ -11,51 +11,30 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-vector<lli> euler_tour;
-
-void dfs(lli v,vector<bool> &vis,vector<vector<pll>> &g)
-{
-    vis[v] = 1;
-    euler_tour.push_back(v);
-    for(auto neig:g[v])
-    {
-        if(!vis[neig.first])
-        {
-            dfs(neig.first,vis,g);
-            euler_tour.push_back(v);
-        }
-    }
-}
-
-void vector_printer( vector<lli> v)
-{
-    cout<<"\n------------------------\n";
-    for(int i=0; i<v.size(); i++)
-        cout<<v[i]<<" ";
-    cout<<"\n------------------------\n";
-}
 
 int main()
 {
     GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    lli n;
-    cin>>n;
-    vector<vector<pll>> g(n+1);
-    vector<bool> vis(n+1,0);
-    for(int i=0; i<n-1; i++)
+    int t;
+    cin>>t;
+    while(t)
     {
-        lli x,y,t;
-        cin>>x>>y>>t;
-        g[x].push_back({y,t});
-        g[y].push_back({x,t});
+        lli n,a,b;
+        cin>>n>>a>>b;
+        if(a == n && b == n)
+            cout<<"Yes\n";
+        else
+        {
+            if(a+3 <= n - b + 1)
+                cout<<"Yes\n";
+            else
+                cout<<"No\n";
+        }
+
+        t--;
     }
-    dfs(1,vis,g);
-    vector_printer(euler_tour);
-
-
-
     return 0;
 }
 

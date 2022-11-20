@@ -11,51 +11,44 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-vector<lli> euler_tour;
 
-void dfs(lli v,vector<bool> &vis,vector<vector<pll>> &g)
+
+lli dfs(lli v,vector<bool> &vis,vector<vector<pll>> &g)
 {
+    //cout<<v<<" ";
     vis[v] = 1;
-    euler_tour.push_back(v);
-    for(auto neig:g[v])
+    lli neeche=0;
+    lli got=0;
+    for(auto i:g[v])
     {
-        if(!vis[neig.first])
+        if(!vis[i.first])
         {
-            dfs(neig.first,vis,g);
-            euler_tour.push_back(v);
+            if(i.second == 2)
+                neeche++;
+            lli gt = dfs(i.first,vis,g);
+            got += gt;
         }
     }
-}
-
-void vector_printer( vector<lli> v)
-{
-    cout<<"\n------------------------\n";
-    for(int i=0; i<v.size(); i++)
-        cout<<v[i]<<" ";
-    cout<<"\n------------------------\n";
+    return max(neeche,got);
 }
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
     lli n;
     cin>>n;
-    vector<vector<pll>> g(n+1);
     vector<bool> vis(n+1,0);
-    for(int i=0; i<n-1; i++)
+    vector<vector<pll>> g(n+1);
+    for(int i=0;i<n-1;i++)
     {
-        lli x,y,t;
-        cin>>x>>y>>t;
-        g[x].push_back({y,t});
-        g[y].push_back({x,t});
+        lli a,b,t;
+        cin>>a>>b>>t;
+        g[a].push_back({b,t});
+        g[b].push_back({a,t});
     }
-    dfs(1,vis,g);
-    vector_printer(euler_tour);
-
-
-
+    cout<<dfs(1,vis,g)<<"\n";
     return 0;
 }
 

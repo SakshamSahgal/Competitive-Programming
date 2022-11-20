@@ -11,51 +11,31 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-vector<lli> euler_tour;
-
-void dfs(lli v,vector<bool> &vis,vector<vector<pll>> &g)
-{
-    vis[v] = 1;
-    euler_tour.push_back(v);
-    for(auto neig:g[v])
-    {
-        if(!vis[neig.first])
-        {
-            dfs(neig.first,vis,g);
-            euler_tour.push_back(v);
-        }
-    }
-}
-
-void vector_printer( vector<lli> v)
-{
-    cout<<"\n------------------------\n";
-    for(int i=0; i<v.size(); i++)
-        cout<<v[i]<<" ";
-    cout<<"\n------------------------\n";
-}
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
     lli n;
     cin>>n;
-    vector<vector<pll>> g(n+1);
-    vector<bool> vis(n+1,0);
-    for(int i=0; i<n-1; i++)
+    if(n == 1 || n == 2)
+        cout<<-1<<"\n";
+    else
     {
-        lli x,y,t;
-        cin>>x>>y>>t;
-        g[x].push_back({y,t});
-        g[y].push_back({x,t});
+        lli b,c;
+        if(n%2 == 0)
+        {
+            b = (n/2)*(n/2) - 1;
+            c = (n/2)*(n/2) + 1;
+        }
+        else
+        {
+            b = (n*n - 1)/2;
+            c = (n*n + 1)/2;
+        }
+        cout<<b<<" "<<c<<"\n";
     }
-    dfs(1,vis,g);
-    vector_printer(euler_tour);
-
-
-
     return 0;
 }
 

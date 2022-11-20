@@ -17,13 +17,12 @@ int main()
     //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    int t;
-    cin>>t;
-    while(t)
-    {
+    map<lli,lli> z;
+    z[1] = 3;
+    z[2] = 4;
+    z[3] = 5;
 
-        t--;
-    }
+    cout<<(z.rbegin())->first<<"\n";
     return 0;
 }
 

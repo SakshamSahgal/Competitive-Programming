@@ -11,29 +11,43 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
+lli mx_freq(map<lli,lli> &f)
+{
+    lli mx=0;
+    for(auto i:f)
+        mx = max(mx,i.second);
+    return mx;
+}
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-
-    lli n,m;
-    cin>>n>>m;
-    lli a[m];
-    for(int i=0; i<m; i++)
-        cin>>a[i];
-    lli ans=inf;
-    sort(a,a+m);
-    for(int i=0; i<m; i++)
+    int t;
+    cin>>t;
+    while(t)
     {
-        lli j = i+n-1;
-        if(j < m)
-            ans = min(ans,a[j] - a[i]);
-        else
-            break;
+        lli n;
+        cin>>n;
+        string s;
+        cin>>s;
+        lli ans=0;
+        for(lli i=0;i<n;i++)
+        {
+            map<char,lli> f;
+            lli mxf=0;
+            for(lli j=i;j<min(n,i+100);j++)
+            {
+                f[s[j]]++;
+                mxf = max(mxf,f[s[j]]);
+                if(mxf <= f.size())
+                    ans++;
+            }
+        }
+        cout<<ans<<"\n";
+        t--;
     }
-    cout<<ans<<"\n";
     return 0;
 }
 
