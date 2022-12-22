@@ -12,36 +12,21 @@ using namespace std;
 typedef pair<lli,lli> pll;
 
 
-void combinationUtil(int arr[], int data[],int start, int end,int index, int r)
-{
-	if (index == r)
-	{
-		for (int j = 0; j < r; j++)
-			cout << data[j] << " ";
-		cout << endl;
-		return;
-	}
-	for (int i = start; i <= end && end - i + 1 >= r - index; i++)
-	{
-		data[index] = arr[i];
-		combinationUtil(arr, data, i+1,
-						end, index+1, r);
-	}
-}
-
 int main()
 {
     GO_FAST
-    freopen("input.txt", "r", stdin);
-    freopen("myout.txt", "w", stdout);
-    int arr[100];
-	int r = 6;
-	int n = 100;
-
-    for(int i=0;i<100;i++)
-        arr[i] = i+1;
-
-	printCombination(arr, n, r);
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+    lli m,b;
+    cin>>m>>b;
+    lli mx=0;
+    for(lli x=0;x<=m*b;x++)
+    {
+        lli y = (m*b - x)/m;
+        lli z = ((y+1)*(x+1)*(y+x))/2;
+        mx = max(mx,z);
+    }
+    cout<<mx<<"\n";
     return 0;
 }
 

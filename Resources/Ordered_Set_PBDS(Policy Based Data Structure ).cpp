@@ -53,6 +53,7 @@ int main()
     xx.insert(3);
     xx.insert(3);
 
+
     for(int i=0;i<xx.size();i++)
         cout<<(*xx.find_by_order(i))<<" ";
 

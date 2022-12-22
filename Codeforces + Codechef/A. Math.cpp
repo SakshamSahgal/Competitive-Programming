@@ -17,37 +17,37 @@ int main()
     GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    int t;
-    cin>>t;
-    while(t)
+    lli n;
+    cin>>n;
+
+    if(n == 1)
+        cout<<n<<" "<<0<<"\n";
+    else
     {
-        lli n;
-        cin>>n;
-        vector<string> v(n);
-        vector<vector<lli>> children(n+1);
-        for(int i=0;i<n;i++)
-            cin>>v[i];
-
-        for(int i=0;i<n;i++)
+        lli c=inf;
+        for(lli i=2; i<=n; i++)
         {
-            for(int j=0;j<n;j++)
+            lli x = i;
+            lli m=0;
+            bool found=0;
+            while(x <= 1e6)
             {
-                if(v[i][j] == '1')
-                    children[j+1].push_back(i+1);
+                if(x%n == 0)
+                {
+                    found=1;
+                    break;
+                }
+                else
+                    m++,x=x*x;
             }
-        }
 
-        for(int i=1;i<=n;i++)
-        {
-            cout<<(1+children[i].size())<<" ";
-            cout<<i<<" ";
-            for(auto j:children[i])
-                cout<<j<<" ";
-            cout<<"\n";
+            if(found)
+                c = min(c,m);
         }
-
-        t--;
+        if(c == inf)
+            cout<<n<<" "<<0<<"\n";
+        else
+            cout<<n<<" "<<c<<"\n";
     }
     return 0;
 }
-

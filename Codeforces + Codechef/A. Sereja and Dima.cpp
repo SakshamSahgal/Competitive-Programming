@@ -12,36 +12,40 @@ using namespace std;
 typedef pair<lli,lli> pll;
 
 
-void combinationUtil(int arr[], int data[],int start, int end,int index, int r)
-{
-	if (index == r)
-	{
-		for (int j = 0; j < r; j++)
-			cout << data[j] << " ";
-		cout << endl;
-		return;
-	}
-	for (int i = start; i <= end && end - i + 1 >= r - index; i++)
-	{
-		data[index] = arr[i];
-		combinationUtil(arr, data, i+1,
-						end, index+1, r);
-	}
-}
-
 int main()
 {
-    GO_FAST
-    freopen("input.txt", "r", stdin);
-    freopen("myout.txt", "w", stdout);
-    int arr[100];
-	int r = 6;
-	int n = 100;
-
-    for(int i=0;i<100;i++)
-        arr[i] = i+1;
-
-	printCombination(arr, n, r);
+    //GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+    lli n;
+    cin>>n;
+    lli a[n];
+    for(int i=0; i<n; i++)
+        cin>>a[i];
+    lli i=0;
+    lli j=n-1;
+    lli s=0;
+    lli d=0;
+    lli moves=0;
+    while(i <= j)
+    {
+        if(!(moves%2))
+        {
+            if(a[i] > a[j])
+                s+=a[i],i++;
+            else
+                s+=a[j],j--;
+        }
+        else
+        {
+            if(a[i] > a[j])
+                d+=a[i],i++;
+            else
+                d+=a[j],j--;
+        }
+        moves++;
+    }
+    cout<<s<<" "<<d<<"\n";
     return 0;
 }
 

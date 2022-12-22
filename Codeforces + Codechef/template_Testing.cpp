@@ -11,6 +11,35 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
+void display(map<lli,vector<lli>> g)
+{
+    cout<<"\n-------------------\n";
+    for(auto i:g)
+    {
+        cout<<i.first<<"-> ";
+        for(auto j:i.second)
+            cout<<j<<" ";
+        cout<<"\n";
+    }
+    cout<<"\n-------------------\n";
+}
+
+void set_pair_printer(set<pair<lli,lli>,greater<pair<lli,lli>>> x)
+{
+    cout<<"\n---------------------------\n";
+    for(auto i:x)
+        cout<<" { "<<i.first<<" "<<i.second<<" }";
+    cout<<"\n---------------------------\n";
+}
+
+
+void vector_printer( vector<lli> v)
+{
+    cout<<"\n------------------------\n";
+    for(int i=0; i<v.size(); i++)
+        cout<<v[i]<<" ";
+    cout<<"\n------------------------\n";
+}
 
 int main()
 {
@@ -23,31 +52,9 @@ int main()
     {
         lli n;
         cin>>n;
-        vector<string> v(n);
-        vector<vector<lli>> children(n+1);
-        for(int i=0;i<n;i++)
-            cin>>v[i];
-
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<n;j++)
-            {
-                if(v[i][j] == '1')
-                    children[j+1].push_back(i+1);
-            }
-        }
-
-        for(int i=1;i<=n;i++)
-        {
-            cout<<(1+children[i].size())<<" ";
-            cout<<i<<" ";
-            for(auto j:children[i])
-                cout<<j<<" ";
-            cout<<"\n";
-        }
-
+        cout<<"wow\n";
+        vector<vector<vector<lli>>> v;
         t--;
     }
     return 0;
 }
-

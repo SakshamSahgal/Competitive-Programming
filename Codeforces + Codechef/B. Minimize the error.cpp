@@ -12,36 +12,48 @@ using namespace std;
 typedef pair<lli,lli> pll;
 
 
-void combinationUtil(int arr[], int data[],int start, int end,int index, int r)
-{
-	if (index == r)
-	{
-		for (int j = 0; j < r; j++)
-			cout << data[j] << " ";
-		cout << endl;
-		return;
-	}
-	for (int i = start; i <= end && end - i + 1 >= r - index; i++)
-	{
-		data[index] = arr[i];
-		combinationUtil(arr, data, i+1,
-						end, index+1, r);
-	}
-}
-
 int main()
 {
     GO_FAST
-    freopen("input.txt", "r", stdin);
-    freopen("myout.txt", "w", stdout);
-    int arr[100];
-	int r = 6;
-	int n = 100;
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+    lli n,k1,k2;
+    cin>>n>>k1>>k2;
 
-    for(int i=0;i<100;i++)
-        arr[i] = i+1;
+    lli a[n];
+    lli b[n];
 
-	printCombination(arr, n, r);
+
+    for(int i=0; i<n; i++)
+        cin>>a[i];
+
+    for(int i=0; i<n; i++)
+        cin>>b[i];
+
+    lli ans=0;
+    lli m=k1+k2;
+    priority_queue<lli> z; //max heap
+
+    for(int i=0; i<n; i++)
+        z.push((abs(a[i]-b[i])));
+
+    while(m)
+    {
+        lli tp = z.top();
+        z.pop();
+        if(tp == 0)
+            z.push(1);
+        else
+            z.push(tp-1);
+        m--;
+    }
+
+
+    while(!z.empty())
+        ans += (z.top()*z.top()),z.pop();
+
+
+    cout<<ans<<"\n";
     return 0;
 }
 

@@ -21,7 +21,7 @@ a.push_back(12);
 a.push_back(13);
 
 auto st = lower_bound(a.begin(),a.end(),5); //left se chalne pe sabse pehla uss element ka index jo >= argument ho
-auto ed = upper_bound(a.begin(),a.end(),4); //right se chalne pe sabse pehla woh index + 1 jo <= argument ho
+auto ed = upper_bound(a.begin(),a.end(),4); //right se chalne pe sabse pehla woh index + 1 jo <= argument ho (first element > x)
 
 for(auto i:a)
     cout<<i<<" ";

@@ -12,36 +12,40 @@ using namespace std;
 typedef pair<lli,lli> pll;
 
 
-void combinationUtil(int arr[], int data[],int start, int end,int index, int r)
-{
-	if (index == r)
-	{
-		for (int j = 0; j < r; j++)
-			cout << data[j] << " ";
-		cout << endl;
-		return;
-	}
-	for (int i = start; i <= end && end - i + 1 >= r - index; i++)
-	{
-		data[index] = arr[i];
-		combinationUtil(arr, data, i+1,
-						end, index+1, r);
-	}
-}
-
 int main()
 {
     GO_FAST
-    freopen("input.txt", "r", stdin);
-    freopen("myout.txt", "w", stdout);
-    int arr[100];
-	int r = 6;
-	int n = 100;
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+    string s;
+    cin>>s;
+    lli i=0;
+    lli n = s.length();
+    vector<pair<char,lli>> z;
+    while(i < n)
+    {
+        lli j=i;
+        while(j+1 < n && s[j+1] == s[i])
+            j++;
+        z.push_back({s[i],j-i+1});
+        i = j+1;
+    }
 
-    for(int i=0;i<100;i++)
-        arr[i] = i+1;
+    for(int i=0;i<z.size();i++)
+        z[i].second = min(z[i].second,(lli)2);
 
-	printCombination(arr, n, r);
+    for(int i=0;i<z.size()-1;i++)
+    {
+        if(z[i].second == 2 && z[i+1].second == 2)
+            z[i+1].second = 1;
+    }
+
+    for(auto i:z)
+    {
+        for(int j=0;j<i.second;j++)
+            cout<<i.first;
+    }
+
     return 0;
 }
 
