@@ -11,19 +11,38 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-lli mod(lli a,lli b)
-{
-    lli ret = a % b;
-    if (ret < 0)
-        ret += b;
-    return ret;
-}
 
 int main()
 {
     GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    cout<<((-4)%5)<<" "<<mod(-4,5);
+    int t;
+    cin>>t;
+    while(t)
+    {
+        lli n,x,y;
+        cin>>n>>x>>y;
+        lli a[n];
+        lli max_ele = -inf;
+        for(int i=0;i<n;i++)
+        {
+            cin>>a[i];
+            max_ele = max(max_ele,a[i]);
+        }
+
+        lli moves=0;
+        lli moves2= (max_ele/y + (max_ele%y != 0));
+        for(int i=n-1;i>=0;i--)
+        {
+            lli rem = a[i] - moves*y;
+            if(rem > 0)
+                moves += (rem/x + (rem%x != 0));
+        }
+        lli ans = min(moves2,moves);
+        cout<<ans<<"\n";
+        t--;
+    }
     return 0;
 }
+

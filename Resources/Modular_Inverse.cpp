@@ -11,6 +11,22 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
+lli modd = 1e9+7;
+
+lli fast_Power(lli a,lli b,lli n) //binary exponentiation (log b)
+{
+    lli res = 1;
+    while(b>0)
+    {
+        if((b&1) != 0) //b is odd
+            res = ((res%n)*(a%n))%n;
+
+        a = ((a%n)*(a%n))%n;
+        b = b>>1; //b = b/2
+    }
+    return res;
+}
+
 lli mod(lli a,lli b)
 {
     lli ret = a % b;
@@ -19,11 +35,20 @@ lli mod(lli a,lli b)
     return ret;
 }
 
+lli modular_inverse(lli x,lli p) //x ka inverse under mod p(must be prime) //O(log(p-2))
+{
+    lli z = fast_Power(x,p-2,p); //log(p-2)
+    z = mod(z,modd);
+    return z;
+}
+
 int main()
 {
     GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    cout<<((-4)%5)<<" "<<mod(-4,5);
+    lli z = modular_inverse(3,17);
+    cout<<z<<"\n";
     return 0;
 }
+

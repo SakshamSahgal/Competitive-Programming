@@ -11,13 +11,29 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
+lli modd = 1e9+7;
+
+lli mod(lli a,lli b)
+{
+    lli ret = a % b;
+    if (ret < 0)
+        ret += b;
+    return ret;
+}
+lli fact(lli z)
+{
+    lli ans = 1;
+    for(lli i=z; i>=1; i--)
+        ans = mod(mod(ans,modd)*i,modd);
+    return ans;
+}
 
 int main()
 {
-    lli a,b;
-    cin>>a>>b;
-    lli z = powl(a,b);
-    cout<<z<<"\n";
+    GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+    cout<<fact(4)<<"\n";
     return 0;
 }
 

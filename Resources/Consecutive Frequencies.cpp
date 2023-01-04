@@ -33,6 +33,28 @@ vector<pair<lli,lli>> consecutive_freq(lli *a,lli n)
     return x;
 }
 
+vector<pair<char,lli>> consecutive_freq_string(string &a)
+{
+    vector<pair<char,lli>> x;
+    lli i=0;
+    lli n = a.length();
+    while(i < n)
+    {
+        lli c=1;
+        lli j=i+1;
+
+        while( j < n && a[j] == a[i])
+        {
+            j++;
+            c++;
+        }
+        //cout<<" from = "<<i<<" to "<<j-1<<"\n";
+        x.push_back({a[i],c});
+        i = j;
+    }
+    return x;
+}
+
 
 vector<pair<pair<lli,lli>,pair<lli,lli>>> consecutive_freq2(lli *a,lli n) //val count , from , to
 {
@@ -56,24 +78,6 @@ vector<pair<pair<lli,lli>,pair<lli,lli>>> consecutive_freq2(lli *a,lli n) //val 
 }
 
 
-vector<lli> consequtive_freq_string(string s)
-{
-    vector<lli> z;
-    int i=0;
-    while(i < s.length())
-    {
-        int j=i+1;
-        int c=1;
-        while(j < s.length() && s[j] == s[i])
-        {
-            j++;
-            c++;
-        }
-        z.push_back(c);
-        i = j;
-    }
-    return z;
-}
 
 void pair_printer(vector<pair<lli,lli>> v)
 {
@@ -82,6 +86,7 @@ for(int i=0;i<v.size();i++)
     cout<<v[i].first<<" "<<v[i].second<<"\n";
 cout<<"\n-------------------------------\n";
 }
+
 
 void vector_printer( vector<lli> v)
 {
@@ -105,7 +110,6 @@ int main()
 
     string s;
     s = "11001001010";
-    vector_printer(consequtive_freq_string(s));
-    return 0;
+    vector_printer(consecutive_freq_string(s));
 }
 

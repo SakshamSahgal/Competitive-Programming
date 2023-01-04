@@ -14,10 +14,33 @@ typedef pair<lli,lli> pll;
 
 int main()
 {
-    lli a,b;
-    cin>>a>>b;
-    lli z = powl(a,b);
-    cout<<z<<"\n";
+    GO_FAST
+    //freopen("input.txt", "r", stdin);
+    //freopen("myout.txt", "w", stdout);
+    lli n;
+    cin>>n;
+    lli a[n];
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+    lli q;
+    cin>>q;
+    while(q--)
+    {
+        lli t;
+        cin>>t;
+        if(t == 1)
+        {
+            lli k,x;
+            cin>>k>>x;
+            a[k-1] = x;
+        }
+        else
+        {
+            lli k;
+            cin>>k;
+            cout<<a[k-1]<<"\n";
+        }
+    }
     return 0;
 }
 

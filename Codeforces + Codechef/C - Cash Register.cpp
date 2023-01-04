@@ -11,19 +11,48 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-lli mod(lli a,lli b)
+vector<pair<char,lli>> consecutive_freq(string &a)
 {
-    lli ret = a % b;
-    if (ret < 0)
-        ret += b;
-    return ret;
+    vector<pair<char,lli>> x;
+    lli i=0;
+    lli n = a.length();
+    while(i < n)
+    {
+        lli c=1;
+        lli j=i+1;
+
+        while( j < n && a[j] == a[i])
+        {
+            j++;
+            c++;
+        }
+        //cout<<" from = "<<i<<" to "<<j-1<<"\n";
+        x.push_back({a[i],c});
+        i = j;
+    }
+    return x;
 }
+
+
 
 int main()
 {
     GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    cout<<((-4)%5)<<" "<<mod(-4,5);
+    string s;
+    cin>>s;
+    vector<pair<char,lli>> z = consecutive_freq(s);
+    //pair_printer(z);
+    lli ans=0;
+    for(auto i:z)
+    {
+        if(i.first == '0')
+            ans += i.second/2 + i.second%2;
+        else
+            ans += i.second;
+    }
+    cout<<ans<<"\n";
     return 0;
 }
+
