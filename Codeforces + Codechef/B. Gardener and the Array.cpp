@@ -1,3 +1,4 @@
+
 #include<bits/stdc++.h>
 #define lli long long int
 #define ld long double
@@ -11,11 +12,6 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-lli is_set(lli n,lli r)
-{
-    lli ans = (n>>r)%2;
-    return ans;
-}
 
 int main()
 {
@@ -28,29 +24,41 @@ int main()
     {
         lli n;
         cin>>n;
-        lli a[n];
+        vector<vector<lli>> v(n);
         map<lli,lli> f;
-        for(lli i=0;i<n;i++)
+        for(int i=0;i<n;i++)
         {
-            cin>>a[i];
-            for(lli j=0;j<=20;j++)
-                f[j] += is_set(a[i],j);
-        }
-
-        for(lli i=0;i<=20;i++)
-        {
-            if(f[i]%2 == 1 && (n - f[i])%2 == 1)
+            lli z,ki;
+            cin>>z;
+            for(int j=0;j<z;j++)
             {
-                cout<<"NO\n";
-                goto l;
+                cin>>ki;
+                v[i].push_back(ki);
+                f[ki]++;
             }
         }
 
-        cout<<"YES\n";
+        for(int i=0;i<n;i++)
+        {
+            bool found=0;
+            for(int j=0;j<v[i].size();j++)
+            {
+                if(f[v[i][j]] == 1)
+                {
+                    found = 1;
+                    break;
+                }
+            }
 
+            if(!found)
+            {
+                cout<<"Yes\n";
+                goto l;
+            }
+        }
+        cout<<"No\n";
         l:
         t--;
     }
     return 0;
 }
-

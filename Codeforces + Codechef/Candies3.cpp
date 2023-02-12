@@ -11,6 +11,13 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
+lli sum_btw(vector<lli> &ps,lli l,lli r)
+{
+    if(l == 0)
+        return ps[r];
+    else
+        return (ps[r] - ps[l-1]);
+}
 
 int main()
 {
@@ -21,39 +28,47 @@ int main()
     cin>>t;
     while(t)
     {
-        lli n;
-        cin>>n;
-        lli a[n];
-        vector<lli> e;
-        vector<lli> o;
+        lli n,m;
+        cin>>n>>m;
+        lli a[n]; //budget
+        lli c[m+1]; //bonus
+        lli f[m+1] = {0}; //freq hash
+        vector<lli> ps(m+1,0);
+
         for(int i=0;i<n;i++)
         {
             cin>>a[i];
-            if(a[i]%2 == 0)
-                e.push_back(a[i]);
-            else
-                o.push_back(a[i]);
+            f[a[i]]++;
         }
 
-        vector<lli> z;
-        for(int i=0;i<e.size();i++)
-            z.push_back(e[i]);
+        for(int i=1;i<=m;i++)
+            cin>>c[i];
 
-        for(int i=0;i<o.size();i++)
-            z.push_back(o[i]);
+        for(int i=1;i<=m;i++)
+            ps[i] = f[i] + ps[i-1];
 
         lli ans=0;
 
-        for(int i=0;i<n;i++)
+        for(lli i=1;i<=m;i++)
         {
-            for(int j=i+1;j<n;j++)
+            lli j=1;
+            lli qt=0;
+            while(1)
             {
-                if( __gcd(z[i],2*z[j]) > 1)
-                    ans++;
+                lli l = j*i;
+                lli r = min((j+1)*i-1,m);
+                //cout<<"i = "<<i<<" l = "<<l<<" r = "<<r<<"\n";
+                qt += sum_btw(ps,l,r)*j;
+                if(r == m)
+                    break;
+                j++;
             }
+            //cout<<(qt*c[i])<<"\n";
+            ans = max(ans,qt*c[i]);
         }
         cout<<ans<<"\n";
         t--;
     }
     return 0;
 }
+

@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+    #include<bits/stdc++.h>
 #define lli long long int
 #define ld long double
 #define GO_FAST ios_base::sync_with_stdio(0);ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
@@ -11,11 +11,6 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-lli is_set(lli n,lli r)
-{
-    lli ans = (n>>r)%2;
-    return ans;
-}
 
 int main()
 {
@@ -30,24 +25,23 @@ int main()
         cin>>n;
         lli a[n];
         map<lli,lli> f;
-        for(lli i=0;i<n;i++)
+        lli mx=-inf;
+        for(int i=0;i<n;i++)
         {
             cin>>a[i];
-            for(lli j=0;j<=20;j++)
-                f[j] += is_set(a[i],j);
+            f[a[i]]++;
+            mx = max(a[i],mx);
         }
 
-        for(lli i=0;i<=20;i++)
+        for(auto i:f)
         {
-            if(f[i]%2 == 1 && (n - f[i])%2 == 1)
+            if(i.second%2)
             {
-                cout<<"NO\n";
+                cout<<"Marichka\n";
                 goto l;
             }
         }
-
-        cout<<"YES\n";
-
+        cout<<"Zenyk\n";
         l:
         t--;
     }

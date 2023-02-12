@@ -11,19 +11,51 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-lli mod(lli a,lli b)
+lli unset_bit(lli n,lli r)
 {
-    lli ret = a % b;
-    if (ret < 0)
-        ret += b;
-    return ret;
+    lli bt = 1;
+    lli ans = n;
+    if( ((n>>r)&(bt)) ) //if that bit is set
+        ans = ans & (~(bt<<r));
+    return ans;
 }
+
+bool is_set(lli n,lli r)
+{
+    lli bt = 1;
+    lli ans = n;
+    return ((n>>r)&(bt));
+}
+
+lli set_bit(lli n,lli r)
+{
+    lli bt = 1;
+    lli ans = n;
+    if( ((bt<<r)&(n)) == 0) //if that bit is unset
+        ans = ((bt<<r)^(n));
+    return ans;
+}
+
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    cout<<((-4)%5)<<" "<<mod(-4,5);
+    lli no = 0;
+    no = set_bit(no,0);
+    no = set_bit(no,1);
+    no = set_bit(no,22);
+    cout<<no<<"\n";
+    no = unset_bit(no,22);
+    cout<<no<<"\n";
+    cout<<is_set(no,22)<<"\n";
+    cout<<is_set(no,1)<<"\n";
+
+    pll a = {2,3};
+    pll b = {3,2};
+    cout<<(a < b)<<"\n";
+
     return 0;
 }
+

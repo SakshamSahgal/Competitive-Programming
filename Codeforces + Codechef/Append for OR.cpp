@@ -26,27 +26,30 @@ int main()
     cin>>t;
     while(t)
     {
-        lli n;
-        cin>>n;
+        lli n,y;
+        cin>>n>>y;
+        lli ans=0;
         lli a[n];
-        map<lli,lli> f;
-        for(lli i=0;i<n;i++)
+        lli p=0;
+        for(int i=0;i<n;i++)
         {
             cin>>a[i];
-            for(lli j=0;j<=20;j++)
-                f[j] += is_set(a[i],j);
+            p = (p|(a[i]));
         }
 
         for(lli i=0;i<=20;i++)
         {
-            if(f[i]%2 == 1 && (n - f[i])%2 == 1)
+            if(is_set(y,i) == 0 && is_set(p,i) == 1)
             {
-                cout<<"NO\n";
+                cout<<"-1\n";
                 goto l;
             }
+
+            if(is_set(y,i) == 1 && is_set(p,i) == 0)
+                ans += (lli)powl(2,i);
         }
 
-        cout<<"YES\n";
+         cout<<ans<<"\n";
 
         l:
         t--;

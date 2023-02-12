@@ -11,11 +11,32 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-lli is_set(lli n,lli r)
+
+set<lli>pairs(vector<lli> &arr)
 {
-    lli ans = (n>>r)%2;
-    return ans;
+    stack<lli> st;
+    set<lli> pairs;
+
+    st.push(arr[0]);
+
+    for (lli i = 1; i < arr.size(); ++i)
+    {
+        while (!st.empty() && arr[i] > st.top())
+        {
+            pairs.insert(arr[i] - st.top());
+            st.pop();
+        }
+        if (!st.empty())
+        {
+            lli mx = max(st.top(),arr[i]);
+            lli mn = min(st.top(),arr[i]);
+            pairs.insert(mx-mn);
+        }
+        st.push(arr[i]);
+    }
+    return pairs;
 }
+
 
 int main()
 {
@@ -28,29 +49,13 @@ int main()
     {
         lli n;
         cin>>n;
-        lli a[n];
-        map<lli,lli> f;
-        for(lli i=0;i<n;i++)
-        {
+        vector<lli> a(n);
+        for(int i=0;i<n;i++)
             cin>>a[i];
-            for(lli j=0;j<=20;j++)
-                f[j] += is_set(a[i],j);
-        }
 
-        for(lli i=0;i<=20;i++)
-        {
-            if(f[i]%2 == 1 && (n - f[i])%2 == 1)
-            {
-                cout<<"NO\n";
-                goto l;
-            }
-        }
-
-        cout<<"YES\n";
-
-        l:
+        set<lli> st = pairs(a);
+        cout<<st.size()<<"\n";
         t--;
     }
     return 0;
 }
-

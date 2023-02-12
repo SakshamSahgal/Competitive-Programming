@@ -11,46 +11,18 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-lli is_set(lli n,lli r)
-{
-    lli ans = (n>>r)%2;
-    return ans;
-}
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    int t;
-    cin>>t;
-    while(t)
-    {
-        lli n;
-        cin>>n;
-        lli a[n];
-        map<lli,lli> f;
-        for(lli i=0;i<n;i++)
-        {
-            cin>>a[i];
-            for(lli j=0;j<=20;j++)
-                f[j] += is_set(a[i],j);
-        }
-
-        for(lli i=0;i<=20;i++)
-        {
-            if(f[i]%2 == 1 && (n - f[i])%2 == 1)
-            {
-                cout<<"NO\n";
-                goto l;
-            }
-        }
-
-        cout<<"YES\n";
-
-        l:
-        t--;
-    }
+    set<pll> z;
+    z.insert({3,4});
+    z.insert({3,5});
+    auto ptr = z.lower_bound({3,6});
+    pll t = *ptr;
+    cout<<(ptr == z.end())<<"\n";
     return 0;
 }
 

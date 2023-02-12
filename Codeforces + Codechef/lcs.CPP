@@ -12,6 +12,32 @@ using namespace std;
 typedef pair<lli,lli> pll;
 
 
+
+
+lli lps(vector<vector<lli>> &dp,string &a, string &b, lli n1, lli n2)
+{
+    if (n1 == 0 || n2 == 0)
+        return 0;
+    if (dp[n1][n2] != -1)
+        return dp[n1][n2];
+    if (a[n1 - 1] == b[n2 - 1])
+        return dp[n1][n2] = 1 + lps(dp,a, b, n1 - 1, n2 - 1);
+    else
+        return dp[n1][n2] = max(lps(dp,a, b, n1 - 1, n2),lps(dp,a, b, n1, n2 - 1));
+}
+
+template<typename Z>
+void Vec_2d_printer(vector<vector<Z>> x)
+{
+    cout<<"\n--------------------\n";
+    for(auto i:x)
+    {
+        for(auto j:i)
+        cout<<j<<" ";
+        cout<<"\n";
+    }
+    cout<<"\n--------------------\n";
+}
 int main()
 {
     GO_FAST
@@ -23,35 +49,14 @@ int main()
     {
         lli n;
         cin>>n;
-        lli a[n];
-        vector<lli> e;
-        vector<lli> o;
-        for(int i=0;i<n;i++)
-        {
-            cin>>a[i];
-            if(a[i]%2 == 0)
-                e.push_back(a[i]);
-            else
-                o.push_back(a[i]);
-        }
-
-        vector<lli> z;
-        for(int i=0;i<e.size();i++)
-            z.push_back(e[i]);
-
-        for(int i=0;i<o.size();i++)
-            z.push_back(o[i]);
-
-        lli ans=0;
-
-        for(int i=0;i<n;i++)
-        {
-            for(int j=i+1;j<n;j++)
-            {
-                if( __gcd(z[i],2*z[j]) > 1)
-                    ans++;
-            }
-        }
+        string s1;
+        cin>>s1;
+        vector<vector<lli>> dp(n+1,vector<lli>(n+1,-1));
+        string s2 = s1;
+        reverse(s2.begin(), s2.end());
+        lli ans = lps(dp,s2, s1, n, n);
+        ans = ans/2;
+        //Vec_2d_printer(dp);
         cout<<ans<<"\n";
         t--;
     }

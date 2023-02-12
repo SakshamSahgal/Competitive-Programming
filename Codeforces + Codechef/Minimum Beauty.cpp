@@ -11,11 +11,6 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-lli is_set(lli n,lli r)
-{
-    lli ans = (n>>r)%2;
-    return ans;
-}
 
 int main()
 {
@@ -28,29 +23,38 @@ int main()
     {
         lli n;
         cin>>n;
-        lli a[n];
-        map<lli,lli> f;
-        for(lli i=0;i<n;i++)
-        {
+        vector<lli> a(n);
+        for(int i=0;i<n;i++)
             cin>>a[i];
-            for(lli j=0;j<=20;j++)
-                f[j] += is_set(a[i],j);
-        }
 
-        for(lli i=0;i<=20;i++)
+        sort(a.begin(),a.end());
+        lli ans = inf;
+        for(int i=0;i<n;i++)
         {
-            if(f[i]%2 == 1 && (n - f[i])%2 == 1)
+            vector<lli> temp;
+            temp.push_back(a[i+1]);
+            for(int j=i+2;j<n;j++)
             {
-                cout<<"NO\n";
-                goto l;
+                auto ptr = lower_bound(temp.begin(),temp.end(),(a[i] + a[j])/2);
+                lli aage = inf;
+                lli pe = inf;
+
+                if(ptr != temp.end())
+                    aage = *ptr;
+                if(ptr != temp.begin())
+                {
+                    ptr--;
+                    pe = *ptr;
+                }
+                lli aa = abs(a[i] + a[j] - 2*pe);
+                lli bb = abs(a[i] + a[j] - 2*aage);
+                lli th = min(aa,bb);
+                ans = min(ans,th);
+                temp.push_back(a[j]);
             }
         }
-
-        cout<<"YES\n";
-
-        l:
+        cout<<ans<<"\n";
         t--;
     }
     return 0;
 }
-

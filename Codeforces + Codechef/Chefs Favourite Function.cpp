@@ -11,10 +11,37 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-lli is_set(lli n,lli r)
+lli gpo2(lli l,lli r)
 {
-    lli ans = (n>>r)%2;
-    return ans;
+    lli z=1;
+    while(z <= r)
+        z = z*2;
+    z = z/2;
+    if(z < l)
+        return -1;
+    else
+        return z;
+}
+
+lli f(lli x)
+{
+    if(x == 1)
+        return 0;
+
+    if(x%2 == 0)
+        return 1 + f(x/2);
+    else
+        return f(x/2);
+}
+
+lli g(lli x)
+{
+    if(x == 1)
+        return 1;
+    if(x%2 == 0)
+        return 2*g(x/2) + 1;
+    else
+        return 2*g(x/2);
 }
 
 int main()
@@ -24,31 +51,26 @@ int main()
     //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
+
+    // for(lli i=1;i<=256;i++)
+    //  cout<<" i = "<<i<<" "<<f(i)<<"+"<<g(i)<<" = "<<f(i) + g(i)<<"\n";
+
     while(t)
     {
-        lli n;
-        cin>>n;
-        lli a[n];
-        map<lli,lli> f;
-        for(lli i=0;i<n;i++)
+        lli l,r;
+        cin>>l>>r;
+        lli gp = gpo2(l,r);
+        lli ans;
+        if(gp != -1)
+            ans = f(gp) + g(gp);
+        else
         {
-            cin>>a[i];
-            for(lli j=0;j<=20;j++)
-                f[j] += is_set(a[i],j);
+            ans = f(l) + g(l);
+            for(lli i=l+1; i<=min(r,l+256); i++)
+                ans = max(ans,f(i) + g(i));
         }
+            cout<<ans<<"\n";
 
-        for(lli i=0;i<=20;i++)
-        {
-            if(f[i]%2 == 1 && (n - f[i])%2 == 1)
-            {
-                cout<<"NO\n";
-                goto l;
-            }
-        }
-
-        cout<<"YES\n";
-
-        l:
         t--;
     }
     return 0;

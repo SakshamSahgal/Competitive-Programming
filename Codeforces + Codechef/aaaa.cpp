@@ -11,11 +11,6 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-lli is_set(lli n,lli r)
-{
-    lli ans = (n>>r)%2;
-    return ans;
-}
 
 int main()
 {
@@ -26,31 +21,34 @@ int main()
     cin>>t;
     while(t)
     {
-        lli n;
-        cin>>n;
-        lli a[n];
-        map<lli,lli> f;
-        for(lli i=0;i<n;i++)
+        string s;
+        cin>>s;
+        string aa = "";
+        string bb = "";
+        lli n = s.length();
+        for(int i=0;i<n-2;i++)
         {
-            cin>>a[i];
-            for(lli j=0;j<=20;j++)
-                f[j] += is_set(a[i],j);
-        }
-
-        for(lli i=0;i<=20;i++)
-        {
-            if(f[i]%2 == 1 && (n - f[i])%2 == 1)
+            aa += s[i];
+            string bb;
+            for(int j=i+1;j<n-1;j++)
             {
-                cout<<"NO\n";
-                goto l;
+                bb += s[j];
+                lli len = s.length() - j - 1;
+                string cc = s.substr(j+1,len);
+                //cout<<aa<<" "<<bb<<" "<<cc<<"\n";
+
+                if( ( aa <= bb && cc <= bb) || ( bb <= aa && bb <= cc) )
+                {
+                    cout<<aa<<" "<<bb<<" "<<cc<<"\n";
+                    goto l;
+                }
             }
         }
-
-        cout<<"YES\n";
-
+        cout<<":(\n";
         l:
         t--;
     }
     return 0;
 }
+
 
