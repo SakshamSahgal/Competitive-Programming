@@ -11,20 +11,37 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
+set<lli> factor_it(lli n)
+{
+    set<lli> factors;
+    for(lli i=1; i<=sqrt(n); i++)
+    {
+        if(n%i == 0)
+            {
+                factors.insert(i);
+                factors.insert(n/i);
+            }
+    }
+    return factors;
+}
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-        unordered_multiset<lli> z;
-        z.insert(1);
-        z.insert(2);
-        z.insert(1);
-        z.insert(1);
-        z.erase(z.find(1));
+        lli noe,noo;
+        cin>>noe>>noo;
+        lli s = noe+noo;
+        set<lli> z = factor_it(s);
         for(auto i:z)
-            cout<<i<<" ";
+        {
+            lli k = s/i;
+            if( (k%2 == noo%2 && noo >= k) || (noo%2 == 0 && (i - (i%2))*k >= noo) )
+            {
+                cout<<k<<"\n";
+                break;
+            }
+        }
     return 0;
 }
-

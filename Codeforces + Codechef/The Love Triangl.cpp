@@ -17,14 +17,13 @@ int main()
     //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-        unordered_multiset<lli> z;
-        z.insert(1);
-        z.insert(2);
-        z.insert(1);
-        z.insert(1);
-        z.erase(z.find(1));
-        for(auto i:z)
-            cout<<i<<" ";
+    lli a,b,c;
+    cin>>a>>b>>c;
+    if(a+b > c && a+c > b && b+c > a)
+        cout<<"Yes\n";
+    else
+        cout<<"No\n";
+
     return 0;
 }
 

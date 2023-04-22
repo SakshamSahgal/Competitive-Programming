@@ -14,17 +14,25 @@ typedef pair<lli,lli> pll;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-        unordered_multiset<lli> z;
-        z.insert(1);
-        z.insert(2);
-        z.insert(1);
-        z.insert(1);
-        z.erase(z.find(1));
-        for(auto i:z)
-            cout<<i<<" ";
+    int t;
+    cin>>t;
+    while(t)
+    {
+        lli n;
+        cin>>n;
+        lli c=0;
+        for(lli a=1;a<sqrtl(n);a++)
+        {
+            lli z = n - a*a;
+            lli sq = sqrtl(z);
+            if( a*a < n &&  sq*sq == z)
+                c++;
+        }
+        cout<<c<<"\n";
+        t--;
+    }
     return 0;
 }
-

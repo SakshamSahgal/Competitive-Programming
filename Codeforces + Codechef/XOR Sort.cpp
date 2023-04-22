@@ -11,63 +11,52 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-bool is_palindrome(vector<lli> a)
-{
-    for(int i=0;i<a.size()/2;i++)
-    {
-        if(a[i] != a[a.size()-i-1])
-            return 0;
-    }
-    return 1;
-}
 
 int main()
 {
-    GO_FAST
+    //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
     int t;
     cin>>t;
     while(t)
     {
-        lli n,k;
-        cin>>n>>k;
+        lli n;
+        cin>>n;
         vector<lli> a(n);
-        for(int i=0; i<n; i++)
+        vector<pair<lli,lli>> h;
+        for(int i=0;i<n;i++)
+        {
             cin>>a[i];
-        string ans;
-        lli z=0;
-        if(k == n)
-        {
-            if(is_palindrome(a))
-                cout<<"YES\n";
-            else
-                cout<<"NO\n";
+            h.push_back({a[i],i});
         }
-        else if(n%2 + k%2 != 0)
-            cout<<"YES\n";
-        else
+
+        sort(h.begin(),h.end());
+
+        bool vis[n] = {0};
+
+        for(int i=0;i<n;i++)
         {
-            lli z=0;
-            lli nn=0;
-            for(int i=0;i<n/2;i++)
+            if(!vis[i])
             {
-                if(a[i] == a[n-i-1])
-                    k-=2;
-                else
+                if(i != h[i].second)
                 {
-                    z += abs(a[i] - a[n-i-1]);
-                    nn++;
+                    vis[i] = 1;
+                    cout<<"\n"<<i<<" ";
+
+                    lli j = h[i].second;
+
+                    while(j != i)
+                    {
+                        cout<<j<<" ";
+                        j = h[j].second;
+                        vis[j]=1;
+                    }
                 }
             }
-
-            if( k <= nn && z%2 == 0)
-                cout<<"YES\n";
-            else
-                cout<<"NO\n";
         }
-        t--;
 
+        t--;
     }
     return 0;
 }

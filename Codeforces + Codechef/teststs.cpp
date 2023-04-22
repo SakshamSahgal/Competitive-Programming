@@ -17,12 +17,9 @@ int main()
     //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    set<pll> z;
-    z.insert({3,4});
-    z.insert({3,5});
-    auto ptr = z.lower_bound({3,6});
-    pll t = *ptr;
-    cout<<(ptr == z.end())<<"\n";
+    bool z = 0;
+    z = z|0|0;
+    cout<<z<<"\n";
     return 0;
 }
 

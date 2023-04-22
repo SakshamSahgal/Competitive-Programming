@@ -17,14 +17,10 @@ int main()
     //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-        unordered_multiset<lli> z;
-        z.insert(1);
-        z.insert(2);
-        z.insert(1);
-        z.insert(1);
-        z.erase(z.find(1));
-        for(auto i:z)
-            cout<<i<<" ";
+    lli x;
+    cin>>x;
+    bool to_add = 3000%x;
+    cout<<min((lli)15,3000/x + to_add)<<"\n";
     return 0;
 }
 

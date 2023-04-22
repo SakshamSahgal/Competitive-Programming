@@ -17,14 +17,21 @@ int main()
     //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-        unordered_multiset<lli> z;
-        z.insert(1);
-        z.insert(2);
-        z.insert(1);
-        z.insert(1);
-        z.erase(z.find(1));
-        for(auto i:z)
-            cout<<i<<" ";
+    int t;
+    cin>>t;
+    while(t)
+    {
+        lli n;
+        cin>>n;
+        lli a[n];
+        for(int i=0;i<n;i++)
+            cin>>a[i];
+        if(a[0] == 1)
+            cout<<"second\n";
+        else
+            cout<<"first\n";
+        t--;
+    }
     return 0;
 }
 

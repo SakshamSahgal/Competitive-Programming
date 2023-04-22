@@ -11,15 +11,6 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
-bool is_palindrome(vector<lli> a)
-{
-    for(int i=0;i<a.size()/2;i++)
-    {
-        if(a[i] != a[a.size()-i-1])
-            return 0;
-    }
-    return 1;
-}
 
 int main()
 {
@@ -30,44 +21,50 @@ int main()
     cin>>t;
     while(t)
     {
-        lli n,k;
-        cin>>n>>k;
-        vector<lli> a(n);
-        for(int i=0; i<n; i++)
-            cin>>a[i];
-        string ans;
-        lli z=0;
-        if(k == n)
+        lli n,j;
+        cin>>n>>j;
+        j--;
+        string s;
+        cin>>s;
+        lli th[n];
+        for(int i=0;i<n;i++)
         {
-            if(is_palindrome(a))
-                cout<<"YES\n";
-            else
-                cout<<"NO\n";
-        }
-        else if(n%2 + k%2 != 0)
-            cout<<"YES\n";
-        else
-        {
-            lli z=0;
-            lli nn=0;
-            for(int i=0;i<n/2;i++)
+            if(i == n-1)
+             th[i] = th[i-1] + 1;
+            else if(i == 0)
             {
-                if(a[i] == a[n-i-1])
-                    k-=2;
+                if(s[i+1] == '#')
+                    th[i] = 2;
                 else
-                {
-                    z += abs(a[i] - a[n-i-1]);
-                    nn++;
-                }
+                    th[i] = 1;
             }
-
-            if( k <= nn && z%2 == 0)
-                cout<<"YES\n";
             else
-                cout<<"NO\n";
+            {
+                if(s[i+1] == '#')
+                    th[i] = th[i-1] + 2;
+                else
+                    th[i] = th[i-1] + 1;
+            }
         }
-        t--;
 
+
+       // for(int i=0;i<n;i++)
+        //    cout<<th[i]<<" ";
+        //cout<<"\n";
+         lli ts = th[j] - 1;
+
+        for(int i=j;i<n;i++)
+        {
+           lli thiss = th[i] - ts;
+           if(i+1 <= thiss)
+           {
+               cout<<"JEFF\n";
+               goto l;
+           }
+        }
+        cout<<"JAY\n";
+        l:
+        t--;
     }
     return 0;
 }

@@ -10,21 +10,42 @@ lli inf = 9e18;
 #define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
 typedef pair<lli,lli> pll;
+lli modd = 1e9+7;
 
+lli fast_Power(lli a,lli b,lli n)
+{
+    lli res = 1;
+    while(b>0)
+    {
+        if((b&1) != 0) //b is odd
+            res = ((res%n)*(a%n))%n;
+
+        a = ((a%n)*(a%n))%n;
+        b = b>>1; //b = b/2
+    }
+    return res;
+}
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-        unordered_multiset<lli> z;
-        z.insert(1);
-        z.insert(2);
-        z.insert(1);
-        z.insert(1);
-        z.erase(z.find(1));
-        for(auto i:z)
-            cout<<i<<" ";
+    int t;
+    cin>>t;
+    while(t)
+    {
+        lli a,n;
+        cin>>a>>n;
+        lli ans;
+        if(a > 0)
+            ans = fast_Power(abs(a),n/2,modd);
+        else
+            ans = 1;
+
+        cout<<ans<<"\n";
+        t--;
+    }
     return 0;
 }
 

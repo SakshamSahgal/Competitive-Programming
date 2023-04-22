@@ -11,20 +11,55 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
+bool poss(unordered_multiset<lli> z,lli tar)
+{
+    while(z.size())
+    {
+        lli a = *z.begin();
+        z.erase(z.begin());
+        lli b = tar - a;
+        if(z.count(b))
+            z.erase(z.find(b));
+        else
+            return 0;
+    }
+    return 1;
+}
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
+    int t;
+    cin>>t;
+    while(t)
+    {
+        lli n;
+        cin>>n;
+        n = 2*n;
+        lli a[n];
         unordered_multiset<lli> z;
-        z.insert(1);
-        z.insert(2);
-        z.insert(1);
-        z.insert(1);
-        z.erase(z.find(1));
-        for(auto i:z)
-            cout<<i<<" ";
+
+        for(int i=0;i<n;i++)
+        {
+            cin>>a[i];
+            z.insert(a[i]);
+        }
+
+        for(int i=1;i<n;i++)
+        {
+            lli ps = a[0] + a[i];
+            if(poss(z,ps))
+            {
+                cout<<"PERFECT\n";
+                goto l;
+            }
+        }
+        cout<<"IMBALANCED\n";
+        l:
+        t--;
+    }
     return 0;
 }
 

@@ -11,20 +11,30 @@ lli inf = 9e18;
 using namespace std;
 typedef pair<lli,lli> pll;
 
+lli calc(char cur,lli n,lli x,lli y)
+{
+    if(n == 1)
+    {
+        if(cur == 'B')
+            return 1;
+        else
+            return 0;
+    }
+
+    if(cur == 'R')
+        return calc('R',n-1,x,y) + x*calc('B',n,x,y);
+    else
+        return calc('R',n-1,x,y) + y*calc('B',n-1,x,y);
+}
 
 int main()
 {
     //GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-        unordered_multiset<lli> z;
-        z.insert(1);
-        z.insert(2);
-        z.insert(1);
-        z.insert(1);
-        z.erase(z.find(1));
-        for(auto i:z)
-            cout<<i<<" ";
+    lli n,x,y;
+    cin>>n>>x>>y;
+    cout<<calc('R',n,x,y)<<"\n";
     return 0;
 }
 
