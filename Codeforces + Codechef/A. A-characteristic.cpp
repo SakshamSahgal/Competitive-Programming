@@ -1,4 +1,4 @@
- #include<bits/stdc++.h>
+#include<bits/stdc++.h>
 #define lli long long int
 #define ld long double
 #define GO_FAST ios_base::sync_with_stdio(0);ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
@@ -9,25 +9,39 @@ lli inf = 9e18;
 #define array_printer(a,l) cout<<#a<<": ";for(__i__=0;__i__<l;__i__++){cout<<a[__i__]<<" ";}cout<<"\n";
 #define array_2d_printer(a,r,c) cout<<"\n"<<#a<<":\n";for(__i__=0;__i__<r;__i__++){for(__j__=0;__j__<c;__j__++){cout<<a[__i__][__j__]<<" ";}cout<<"\n";}
 using namespace std;
-
-//remember to use endl instead of \n for interactive problems.
-
-
-
+typedef pair<lli,lli> pll;
 
 int main()
 {
-    //GO_FAST
+    GO_FAST
     //freopen("input.txt", "r", stdin);
     //freopen("myout.txt", "w", stdout);
-    lli n = 14;
-    bitset<8> b(n);
-    b[5] = 1;
-    for(int i=0;i<b.size();i++)
-    cout<<"\n";
-        cout<<b[i]<<" ";
-    lli z = b.to_ullong();
-    cout<<z<<"\n";
+    int t;
+    cin>>t;
+    while(t)
+    {
+        lli n,k;
+        cin>>n>>k;
+        for(int i=0;i<=n;i++)
+        {
+            lli f1 = i;
+            lli f2 = n - i;
+            lli x = ((f1-1)*f1 + (f2-1)*f2);
+            if(x == 2*k)
+            {
+                cout<<"YES\n";
+                for(int i=0;i<f1;i++)
+                    cout<<1<<" ";
+                for(int i=0;i<f2;i++)
+                    cout<<-1<<" ";
+                cout<<"\n";
+                goto l;
+            }
+        }
+        cout<<"NO\n";
+        l:
+        t--;
+    }
     return 0;
 }
 

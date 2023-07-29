@@ -29,7 +29,7 @@ public:
         memset(seg,-1,4*n*sizeof(lli));
     }
 
-    void Build_min(lli ind,lli low,lli high,lli a[])
+    void Build_min(lli ind,lli low,lli high,lli a[]) //nlogn
     {
         if(low == high)
         {
@@ -46,7 +46,7 @@ public:
     }
 
 
-    void Build_max(lli ind,lli low,lli high,lli a[])
+    void Build_max(lli ind,lli low,lli high,lli a[]) //nlogn
     {
         if(low == high)
         {
@@ -62,7 +62,23 @@ public:
         }
     }
 
-    lli Querry_min(lli ind,lli low,lli high,lli l,lli r)
+    void Build_Sum(lli ind,lli low,lli high,lli a[]) //nlogn
+    {
+        if(low == high)
+        {
+            seg[ind] = a[low];
+            return;
+        }
+        else
+        {
+            lli mid = (low+high)/2;
+            Build_Sum(2*ind + 1,low,mid,a);
+            Build_Sum(2*ind + 2,mid+1,high,a);
+            seg[ind] = (seg[2*ind+1]+seg[2*ind + 2]);
+        }
+    }
+
+    lli Querry_min(lli ind,lli low,lli high,lli l,lli r) //logn //ind -> index of the seg tree you are currently at , low,high=> range of array indexes that the node holds , l,r=> range that you want the ans for
     {
         if(r < low || l > high) // no overlap
             return inf;
@@ -77,7 +93,7 @@ public:
         }
     }
 
-    lli Querry_max(lli ind,lli low,lli high,lli l,lli r)
+    lli Querry_max(lli ind,lli low,lli high,lli l,lli r) //logn //ind -> index of the seg tree you are currently at , low,high=> range of array indexes that the node holds , l,r=> range that you want the ans for
     {
         if(r < low || l > high) // no overlap
             return -inf;
@@ -92,7 +108,22 @@ public:
         }
     }
 
-    void Point_Update_min(lli ind,lli low,lli high,lli i,lli val) //ind - > index of the seg tree you are currently at , i -> index of the array you want to update
+    lli Querry_Sum(lli ind,lli low,lli high,lli l,lli r) //logn //ind -> index of the seg tree you are currently at , low,high=> range of array indexes that the node holds , l,r=> range that you want the ans for
+    {
+        if(r < low || l > high) // no overlap
+            return 0;
+        else if( l <= low && r >= high) //completly inside querry overlap
+            return seg[ind];
+        else
+        {
+            lli mid = (low + high)/2;
+            lli left = Querry_Sum(2*ind + 1,low,mid,l,r);
+            lli right = Querry_Sum(2*ind + 2,mid+1,high,l,r);
+            return (left+right);
+        }
+    }
+
+    void Point_Update_min(lli ind,lli low,lli high,lli i,lli val) //ind - > index of the seg tree you are currently at , i -> index of the array you want to update //logn
     {
         if(low == high)
         {
@@ -110,7 +141,7 @@ public:
         }
     }
 
-    void Point_Update_max(lli ind,lli low,lli high,lli i,lli val) //ind - > index of the seg tree you are currently at , i -> index of the array you want to update
+    void Point_Update_max(lli ind,lli low,lli high,lli i,lli val) //ind - > index of the seg tree you are currently at , i -> index of the array you want to update //logn
     {
         if(low == high)
         {
@@ -128,7 +159,25 @@ public:
         }
     }
 
-    void print_segiment_tree(lli n)
+    void Point_Update_Sum(lli ind,lli low,lli high,lli i,lli val) //ind - > index of the seg tree you are currently at , i -> index of the array you want to update //logn
+    {
+        if(low == high)
+        {
+            seg[ind] = val;
+            return;
+        }
+        else
+        {
+            lli mid = (low+high)/2;
+            if(i<=mid)
+                Point_Update_Sum((2*ind+1),low,mid,i,val);
+            else
+                Point_Update_Sum((2*ind+2),mid+1,high,i,val);
+            seg[ind] = (seg[2*ind+1]+seg[2*ind+2]);
+        }
+    }
+
+    void print_segiment_tree(lli n) //o(n)
     {
         line_printer(20);
         cout<<"\nSEG TREE - > \n";
@@ -161,7 +210,7 @@ int main()
             cin>>a[i];
 
         Segiment_Tree st(n);
-        st.Build_min(0,0,n-1,a);
+        st.Build_min(0,0,n-1,a); //
         st.print_segiment_tree(n);
 
         line_printer(20);
@@ -171,7 +220,7 @@ int main()
 
         cout<<"Updating Point min (changing third index to 4)\n";
         st.Point_Update_min(0,0,n-1,3,4); //changing third index to 4
-        a[3] = 4;
+        //a[3] = 4;
         st.print_segiment_tree(n);
         cout<<"\nMin in range index from 1 to 4 is = "<<st.Querry_min(0,0,n-1,1,4)<<"\n";
         line_printer(20);
@@ -181,6 +230,18 @@ int main()
         cout<<"\nMax in range index from 3 to 3 is = "<<st2.Querry_max(0,0,n-1,3,3)<<"\n";
         cout<<"\nMax in range index from 0 to 2 is = "<<st2.Querry_max(0,0,n-1,0,2)<<"\n";
         line_printer(20);
+        Segiment_Tree st3(n);
+        st3.Build_Sum(0,0,n-1,a);
+        st3.print_segiment_tree(n);
+        cout<<"\nSum in range index from 1 to 4 is = "<<st3.Querry_Sum(0,0,n-1,1,4)<<"\n";
+        cout<<"\nSum in range index from 0 to 2 is = "<<st3.Querry_Sum(0,0,n-1,0,2)<<"\n";
+        cout<<"\nSum in range index from 2 to 1 is = "<<st3.Querry_Sum(0,0,n-1,2,1)<<"\n";
+        cout<<"Updating Point sum (changing third index to 4)\n";
+        st3.Point_Update_Sum(0,0,n-1,3,4); //changing third index to 4
+        //a[3] = 4;
+        cout<<"\nSum in range index from 1 to 4 is = "<<st3.Querry_Sum(0,0,n-1,1,4)<<"\n";
+        cout<<"\nSum in range index from 0 to 2 is = "<<st3.Querry_Sum(0,0,n-1,0,2)<<"\n";
+        cout<<"\nSum in range index from 2 to 1 is = "<<st3.Querry_Sum(0,0,n-1,2,1)<<"\n";
         t--;
     }
     return 0;
